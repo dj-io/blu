@@ -2,14 +2,14 @@
  <h1 align="center"> Apollo CLI 🌔 </h1>
 
 <p align="center">
-  <a href="https://pypi.org/project/apollo-cli/">
-    <img src="https://img.shields.io/pypi/v/apollo-cli.svg" alt="PyPI Version">
+  <a href="https://pypi.org/project/apollo-o1/1.0.0/">
+    <img src="https://img.shields.io/pypi/v/apollo-o1.svg" alt="PyPI Version">
   </a>
-  <a href="https://github.com/dj-io/apollo-cli/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/dj-io/apollo-cli.svg" alt="License">
+  <a href="https://github.com/dj-io/apollo-o1/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/dj-io/apollo-o1.svg" alt="License">
   </a>
-  <a href="https://github.com/dj-io/apollo-cli/actions">
-    <img src="https://github.com/dj-io/apollo-cli/actions/workflows/ci.yml/badge.svg" alt="Build Status">
+  <a href="https://github.com/dj-io/apollo-o1/actions">
+    <img src="https://github.com/dj-io/apollo-o1/actions/workflows/ci.yml/badge.svg" alt="Build Status">
   </a>
 </p>
 
@@ -33,7 +33,7 @@ Ensure you have the following installed:
 
 ## Installation
 
-### Via PyPI
+### Via [PyPI](https://pypi.org/project/apollo-o1/1.0.0/)
 
 Install the latest version using `pip`:
 
@@ -77,7 +77,7 @@ Commands:
 
 `apollo creat-repo`
 
-The `create_repo` command is one of the features that kicked off Apollo CLI.
+The `create-repo` command is one of the features that kicked off Apollo CLI.
 It allows developers to create a GitHub repository and push it from a local directory with minimal effort.
 
 ### Usage
