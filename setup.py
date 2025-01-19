@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="apollo",
-    version="0.3.0",
+    version="0.2.0",
     description="A CLI tool for automating developer workflows.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -10,6 +10,7 @@ setup(
     author_email="hq@stratumlabs.ai",
     url="https://github.com/dj-io/apollo",
     packages=find_packages(where="apollo"),
+    include_package_data=True,
     install_requires=[
         "questionary",
         "click>=8.0.0",

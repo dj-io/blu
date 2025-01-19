@@ -1,5 +1,6 @@
 import click
 from apollo.create_repo import create_repo  # Import subcommands
+from apollo.push_repo import push_repo
 
 @click.group()
 def apollo():
@@ -19,6 +20,7 @@ pass
 
 # Add subcommands to the CLI
 apollo.command("create-repo", help="Create a new github Repository")(create_repo)
+apollo.command("push_repo", help="Push an existing directory to a remote repository in github")(push_repo)
 
 # Add future commands here
 # apollo.command("data-utils")(data_utils)

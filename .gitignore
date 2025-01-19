@@ -1,0 +1,44 @@
+# Byte-compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution and build directories
+build/
+dist/
+*.egg-info/
+
+# Virtual environment
+venv/
+.env/
+.venv/
+
+# macOS-specific files
+.DS_Store
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# Test coverage and reports
+.coverage
+*.cover
+*.cov
+htmlcov/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Python packaging
+*.manifest
+pip-wheel-metadata/
+
+# PyInstaller
+*.spec
+
+# Others
+*.bak
