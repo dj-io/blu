@@ -13,9 +13,32 @@
   </a>
 </p>
 
-Apollo CLI is a Python-based command-line interface designed to enhance the developer experience by automating common tasks and workflows. This tool simplifies tasks like managing GitHub repositories, navigating directories, and more, allowing developers to focus on building and delivering software efficiently.
+Apollo-o1 CLI is a Python-based, AI Powered, command-line interface designed to enhance the developer experience by automating common devOps and project management tasks and workflows. 
 
-#  Features ⚙️
+This tool simplifies tasks like managing source control repositories i.e Github, navigating directories, Project management workflows, CI/CD and more, allowing developers to focus on building and delivering software efficiently.
+
+# Table of Contents
+
+- [Features ⚙️](#-features-⚙️)
+- [Getting Started 🔑](#getting-started-🔑)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Usage 🛠](#usage-🛠️) ️
+  - [Show Available Commands](#show-available-commands)
+  - [Apollo's First Script: `gh-create`](#apollos-first-script)
+    - [Usage](#usage-1)
+    - [Key Features](#key-features)
+- [Contributing 💡](#contributing-💡)
+  - [Developer Mode 🪄](#developer-mode-🪄)
+    - [Setting Up Developer Mode](#setting-up-developer-mode)
+    - [Available Commands](#available-commands)
+    - [Additional Notes](#additional-notes)
+  - [Guidelines](#guidelines)
+  - [Versioning](#versioning)
+- [License 📜](#license-📜 )  
+- [Acknowledgments 🙏](#acknowledgments-🙏) 
+
+# ️ Features ⚙️ 
 
  - **Automation Tools**: Scripts for automating repetitive tasks, such as data processing, file management, github actions, and API integration.
 - **Data Utilities**: Scripts for data extraction, transformation, and analysis, including  
@@ -43,16 +66,16 @@ pip install apollo
 
 ### Via Source
 
-Clone the repository and install it locally for development:
+Clone the repository and install it locally:
 ```bash
 git clone https://github.com/dj-io/apollo-cli.git
-cd apollo-cli
-pip install -e .
+cd apollo-o1
+pip install -r requirements.txt
 ```
 
-## Usage
+## Usage 🛠
 
-Apollo CLI provides a collection of commands designed to streamline your development workflows. After installation, the apollo command is available in your terminal.
+Apollo o1 provides a collection of commands designed to streamline your development workflows. After installation, the apollo command is available in your terminal.
 
 ### Show Available Commands
 
@@ -69,18 +92,18 @@ Options:
   --help  Show this message and exit.
 
 Commands:
-  create-repo       Create and push a new repository to GitHub.
-  push-existing     Push an existing local repository to a new GitHub repo.
+  gh-create  Create and push a new repository to GitHub.
+  gh-add     Push an existing local repository to a new GitHub repo.
 ```
 
 ## Apollos First Script
 
-`apollo creat-repo`
+`apollo gh-create`
 
-The `create-repo` command is one of the features that kicked off Apollo CLI.
+The `gh-create` command is one of the features that kicked off Apollo CLI.
 It allows developers to create a GitHub repository and push it from a local directory with minimal effort.
 
-### Usage
+### Usage 🛠️
 
  **Prerequisites**:
 - Install [Github CLI](https://cli.github.com/) and authenticate using:
@@ -100,7 +123,7 @@ git config --global user.email "youremail@example.com"
 1. Run the command:
 
 ```bash
-apollo create-repo
+apollo gh-create
 ```
 
 2. Follow the interactive prompts:
@@ -110,7 +133,7 @@ apollo create-repo
 	    - Select an existing directory.
 	    - Create a new directory.
 
-3.	Apollo CLI will handle the following automatically:
+3.	Apollo o1 will handle the following automatically:
 	- Create the repository on GitHub.
 	- Initialize a local Git repository.
 	- Add a README.md file with the repository’s name and description.
@@ -120,7 +143,7 @@ apollo create-repo
 
 1. Interactive Directory Selection
 
-Apollo CLI automatically detects directories and provides multiple options:
+Apollo o1 automatically detects directories and provides multiple options:
 - Use the current working directory.
 - Select an existing directory from a list.
 - Create a new directory if needed.
@@ -144,40 +167,152 @@ Use cached GitHub username: <username>? (yes/no)
 - Adds a remote origin and pushes the code to GitHub.
 
 
-# Contributing
+# Contributing 💡
 
-Contributions are welcome! To Contribute:
+### Getting started:
 
 1. Fork the repository.
+    ```bash
+    gh repo fork https://github.com/dj-io/apollo-o1.git --remote=true
+    ```
 
 2. Create a new branch to your feature or bug fix:
-```bash
-git checkout -b feature/your-feature-name
-```
+    ```bash
+    git checkout -b feature/your-feature-name
+    ```
 
 3. Commit your changes:
-```bash
-git commit -m "Description of your changes"
-```
+    ```bash
+    git commit -m "Description of your changes"
+    ```
 
 4. Push to your branch:
-```bash
-git push origin feature/your-feature-name
-```
+    ```bash
+    git push origin feature/your-feature-name
+    ```
 
 5. Open a pull request on Github.
 
-Guidelines:
-- Ensure your code is well-documented and adheres to PEP 8 standards.
-- Add tests for any new features or bug fixes.
+### Developer Mode 🪄: 
 
-**License**
+### Setting up developer mode:
+ 
+ `Developer mode enables additional CLI commands (e.g., apollo build and apollo deploy) that are not available in production. Follow these steps to configure and use developer mode:`
+
+**1. Create Environemnt Files**
+
+  - Navigate to the root directory of the project.
+  - Create .env.dev and .env.prod files based on the provided .env.sample file.
+  
+  ```bash
+  cp .env.sample .env.dev
+  cp .env.sample .env.prod
+  ```
+- Edit the .env.dev and .env.prod files with your environment-specific variables. For example:
+
+```bash
+  APOLLO_DEV_MODE=1
+  TEST_PYPI_TOKEN=your-test-pypi-token
+```
+
+**2. Enable Developer Mode.**
+Run the following command in your terminal to enable developer mode:
+
+  ```bash
+  export ENV=dev
+  ```
+
+- This sets the ENV variable to dev, which ensures the script loads .env.dev and enables developer-specific features.
+
+**3. Using Developer Mode:**
+
+**Available Commands**
+
+Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy apollo.
+
+1. **Build**
+    
+     Use the apollo build command to rebuild the package during development. This ensures all changes to the codebase are reflected in the package.
+
+    ```bash
+    apollo build
+    ```
+    - **The command includes prompts to**:
+      - Cleans up old build artifacts.
+      - Rebuilds the package into the dist/ directory
+      - Installs the package locally for testing
+      - Automatically installs missing dependencies from `requirements.txt`
+
+2. **Deploy**
+    Use the apollo deploy command to package and deploy the CLI to PyPI (or TestPyPI)
+
+    ```bash
+    apollo deploy
+    ```
+    -	The command includes prompts to:
+        -	Select between TestPyPI or Prod PyPI.
+        - Provide changelog or release notes.
+        -	Confirm the deployment target.
+
+    - Example
+
+      ```bash
+      apollo deploy --test  # Deploy to TestPyPI
+      apollo deploy --prod  # Deploy to Prod PyPI
+      ```
+
+ **4. Additional Notes**
+      
+  - `The deploy command is only executable with credentials provided upon request`
+  - **Switching Modes**:
+    - To switch back to production mode, run:
+    ```bash
+    export ENV=prod
+    ```
+    - This switch happens automatically during deployments.
+
+  - Ensure you have set up your **TestPypi** and **ProdPypi** API tokens as environment variables:
+      ```bash
+      export TEST_PYPI_TOKEN="your-test-token"
+      export PYPI_TOKEN="your-prod-token"
+      ```
+    - If you want to update the tokens, the apollo deploy command will prompt you automatically if the    
+    environment variables are not found.
+  
+  - Run `apollo --help` in developer mode to view the full list of available commands
+  -  If you modify .env.dev or .env.prod, reload your environment variables:
+      ```bash
+      source ~/.zshrc  # For Zsh
+      source ~/.bashrc  # For Bash
+      ```
+
+
+### Guidelines:
+
+- Ensure your code is well-documented and adheres to **PEP 8** standards.
+- Add **tests** for any new features or bug fixes.
+- **Do Not Commit Sensitive Data**: Ensure .env.dev and .env.prod are excluded from version control by including them in .gitignore.
+- **Testing Locally**: Use apollo build to test changes locally before deploying to PyPI or TestPyPI.
+- **Deploy Responsibly**: Always verify the environment (dev or prod) before running deployment commands to avoid accidental production deployments.
+
+### Versioning:
+Given a version number `major.minor.patch`, increment the: 
+
+  - Breaking backwards compatibility bumps the MAJOR
+  - New additions without breaking backwards compatibility bumps the MINOR
+  - Bug fixes and misc changes bump the PATCH
+  
+  **For more information on semantic versioning, please visit http://semver.org/.**
+
+
+### License: 📜
+Copyright Stratum Labs LLC.
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-# Acknowledgments
+# Acknowledgments 🙏
 
-Apollo CLI is inspired by the need to streamline development workflows. Special thanks to all contributors who have helped shape this project.
+Apollo o1 is inspired by the need to streamline development workflows. Special thanks to all future contributors who will help shape this project.
 
 <!-- ### Technologies Used 📚
 

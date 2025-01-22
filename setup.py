@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="apollo-o1",
-    version="1.0.0",
+    version="1.1.0-beta",
     description="A CLI tool for automating developer workflows.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
@@ -14,6 +14,8 @@ setup(
     install_requires=[
         "questionary",
         "click",
+        "python-dotenv",
+        "halo"
     ],
     entry_points={
         "console_scripts": [

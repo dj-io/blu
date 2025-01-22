@@ -13,6 +13,8 @@ dist/
 venv/
 .env/
 .venv/
+.env.dev
+.env.prod
 
 # macOS-specific files
 .DS_Store
