@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name="apollo-o1",
     version="1.1.0-beta",
-    description="A CLI tool for automating developer workflows.",
+    description="An AI-powered Command-Line Interface designed to streamline the SDLC by automating project workflows, including source control, CI/CD, ticket and documentation generation, and other processes.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Stratum Labs",
