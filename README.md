@@ -13,7 +13,7 @@
   </a>
 </p>
 
-Apollo-o1 CLI is a Python-based, AI Powered, command-line interface designed to enhance the devOps and project management experience by automating devOps and project management workflows. 
+Apollo-o1 CLI is a Python-based, AI Powered, command-line interface designed to enhance the Software Development Life Cycle experience by automating devOps and project management workflows. 
 
 This tool simplifies tasks like managing source control repositories i.e Github, CI/CD i.e github actions, Project management workflows and more, allowing teams to focus on building and delivering software efficiently.
 
