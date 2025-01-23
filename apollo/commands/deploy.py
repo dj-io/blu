@@ -94,7 +94,7 @@ def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
     if version_type == "patch" and not (major or minor or patch):
         spinner.info("No version flag provided. Defaulting to 'patch'.")
         
-    increment_version(version_type)
+    increment_version(APOLLO_PATH, version_type)
     
     # Push to PyPI or TestPyPI
     try:

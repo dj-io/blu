@@ -3,8 +3,10 @@ from apollo.utils.config import load_config, cache_apollo_path
 from halo import Halo
 import os
 import subprocess
+import click
 
-def build():
+@click.option("--lint-skip", is_flag=True, help="Build without linting checks")
+def build(lint_skip):
     
     config = load_config()
 
@@ -26,6 +28,25 @@ def build():
         except subprocess.CalledProcessError as e:
             spinner.fail(f"Failed to install dependencies: {e.stderr}")
             return
+        
+        # Step 2: Verify code quality and run tests
+    try:
+        if not lint_skip:
+            run_command("flake8 .", APOLLO_PATH, start="Checking code quality...")
+            spinner.succeed("Code quality checks passed.")
+
+        run_command("pytest --maxfail=1 --disable-warnings", APOLLO_PATH, start="Running tests...")
+        spinner.succeed("All tests passed.")
+    except subprocess.CalledProcessError as e:        
+        spinner.fail("Build failed due to code quality or test failures.")
+        print("Errors/Stack Trace:")
+        
+        if e.stdout or e.stderr:
+            spinner.fail("\n".join(output.strip() for output in [e.stdout, e.stderr] if output))
+            
+        spinner.info("Please resolve the issues above and try again.")
+        exit(1)
+
         
     """Clean and rebuild the package (developer only)."""
     while True:

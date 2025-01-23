@@ -1,4 +1,5 @@
 import subprocess
+import os
 from halo import Halo
 
 # Helper function to run shell commands
@@ -29,13 +30,15 @@ def run_command(command, cwd=None, start="Process"):
         exit(1)
 
         
-def increment_version(setup_file, version_type="patch"):
+def increment_version(APOLLO_PATH, version_type="patch"):
     """
     Increment the version number in setup.py for major, minor, or patch updates.
     
     :param setup_file: Path to the setup.py file.
     :param version_type: The part of the version to increment: 'major', 'minor', or 'patch'.
     """
+    setup_file = os.path.join(APOLLO_PATH, "setup.py")
+    
     spinner = Halo(spinner="dots")
     spinner.start(f"Incrementing {version_type} version in setup.py...")
     
