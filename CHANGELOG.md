@@ -8,6 +8,7 @@
 - **Change Logs in Deployment:** Integrated a prompt to accept release notes or changelogs during deployments. Automatically appends entries to a `CHANGELOG.md` file if provided.
 - **Authentication Controls:** Restricted deployment access by validating against a list of allowed users in the configuration file (`allowed_users`).
 - **Enhanced `.pypirc` Validation:** Automatically detects the `.pypirc` file, verifies its validity, and prompts users to create or update it with proper credentials for TestPyPI and ProdPyPI if missing.
+- **Automated Version Incrementing**: Added logic to the deploy command to automatically increment the major, minor, or patch version in setup.py based on a specified flag. Preserves other version components during updates and initializes the version if missing.
 - **Sanity Check Before Deployment:** Added logic to perform a sanity check (`twine check`) on built packages before uploading them to ensure no build errors. Generates logs if issues are detected.
 
 ### Changed

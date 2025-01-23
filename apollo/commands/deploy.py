@@ -2,7 +2,7 @@ import os
 import questionary
 import click
 import getpass
-from apollo.utils.run_command import run_command
+from apollo.utils.run_command import run_command, increment_version
 from apollo.utils.config import load_allowed_users, cache_apollo_path, load_config, ensure_pypirc
 from halo import Halo
 
@@ -10,7 +10,10 @@ from halo import Halo
 @click.option("--prod", is_flag=True, help="Push the package to Prod PyPI.")
 @click.option("--skip-sanity-check", is_flag=True, help="Skip the sanity check step before deployment")
 @click.option("--verbose", is_flag=True, help="Useful for additon logging in the case of no deploys")
-def deploy(test, prod, skip_sanity_check, verbose):
+@click.option("--major", is_flag=True, help="Increment the major version.")
+@click.option("--minor", is_flag=True, help="Increment the minor version.")
+@click.option("--patch", is_flag=True, help="Increment the patch version (default).")
+def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
     """
     Package and push the project to PyPI or TestPyPI.
     Use --test to push to TestPyPI, or --prod to push to Prod PyPI.
@@ -37,6 +40,7 @@ def deploy(test, prod, skip_sanity_check, verbose):
     # Confirm Deployment Environment
     env_choice = "testpypi" if test else "pypi"
     verbose = "--verbose" if verbose else ""
+    version_type = "major" if major else "minor" if minor else "patch"
     
     if not questionary.confirm(f"Are you sure you want to deploy to {env_choice}?").ask():
         spinner.fail("Deployment aborted.")
@@ -86,6 +90,12 @@ def deploy(test, prod, skip_sanity_check, verbose):
             print(f"\nSanity Check Errors:\n{str(e)}")  # Print the log to the terminal
             return
 
+    # Increment version
+    if version_type == "patch" and not (major or minor or patch):
+        spinner.info("No version flag provided. Defaulting to 'patch'.")
+        
+    increment_version(version_type)
+    
     # Push to PyPI or TestPyPI
     try:
         run_command(f"python3 -m twine upload --repository {env_choice} dist/* {verbose}", APOLLO_PATH, start=f"Pushing package to {env_choice}...")

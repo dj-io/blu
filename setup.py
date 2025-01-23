@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="apollo-o1",
-    version="1.1.0-beta",
+    version="1.1.1-beta",
     description="An AI-powered Command-Line Interface designed to streamline the SDLC by automating project workflows, including source control, CI/CD, ticket and documentation generation, and other processes.",
     long_description=open("CHANGELOG.md").read(),
     long_description_content_type="text/markdown",
