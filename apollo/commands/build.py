@@ -33,7 +33,7 @@ def build():
             run_command("rm -rf dist/ build/ *.egg-info", APOLLO_PATH, start="Cleaning up old build artifacts...")
             spinner.succeed("Old build artifacts cleaned up.")
             
-            run_command("python3 setup.py sdist bdist_wheel", APOLLO_PATH, start="Building the package...")
+            run_command("python3 -m build", APOLLO_PATH, start="Building the package...")
             spinner.succeed("Package built successfully.")
             
             run_command("pip3 install dist/*.whl --force-reinstall", APOLLO_PATH, start="Installing locally for testing...")

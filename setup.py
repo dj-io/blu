@@ -15,7 +15,7 @@ setup(
         "questionary",
         "click",
         "python-dotenv",
-        "halo"
+        "halo",
     ],
     entry_points={
         "console_scripts": [

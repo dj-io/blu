@@ -3,28 +3,27 @@ from halo import Halo
 
 # Helper function to run shell commands
 def run_command(command, cwd=None, start="Process"):
-    
     spinner = Halo(spinner="dots")
     """Run shell commands and display output."""
     try:
         spinner.start(start)
         result = subprocess.run(
-            command, 
-            shell=True, 
-            cwd=cwd, 
-            check=True, 
-            stdout=subprocess.PIPE, 
-            stderr=subprocess.PIPE,
+            command,
+            shell=True,
+            cwd=cwd,
+            check=True,
+            text=True,
+            capture_output=True
         )
-        
-        # Decode the output for the spinner
-        stdout_message = result.stdout.decode("utf-8").strip()
         spinner.succeed(f"{start} - Completed successfully.")
         
-        if stdout_message:
-            print(stdout_message)  # Optionally, display the command output
-        return stdout_message
+        # Display the standard output
+        if result.stdout:
+            print(result.stdout.strip())
+        return result.stdout
     except subprocess.CalledProcessError as e:
-        error_message = e.stderr.decode("utf-8").strip()
-        spinner.fail(f"{start} - Failed with error: {error_message}")
+        spinner.fail(f"{start} - Failed with error: ")
+        
+        if e.stdout or e.stderr:
+            spinner.fail("\n".join(output.strip() for output in [e.stdout, e.stderr] if output))
         exit(1)
