@@ -1,32 +1,31 @@
-# Changelog
+<h1 align="center"> 📜 Change Log </h1>
 
-
-## Release Notes
-# Changelog
-
----
-
-## [1.1.0-beta] - 2025-01-21
+<h3 align="center"> [1.1.0-beta] - 2025-01-21 </h3>
 
 ### Added
 - **Spinner Integration:** Introduced terminal spinners using the `halo` library to enhance user experience during command executions.
 - **Environment Management:** Added support for `.env.dev` and `.env.prod` files to streamline configuration for developer and production modes.
-- **Token Management:** Implemented token management for PyPI deployments, allowing secure updates for TestPyPI and ProdPyPI tokens directly in the CLI.
 - **Change Logs in Deployment:** Integrated a prompt to accept release notes or changelogs during deployments. Automatically appends entries to a `CHANGELOG.md` file if provided.
 - **Authentication Controls:** Restricted deployment access by validating against a list of allowed users in the configuration file (`allowed_users`).
+- **Enhanced `.pypirc` Validation:** Automatically detects the `.pypirc` file, verifies its validity, and prompts users to create or update it with proper credentials for TestPyPI and ProdPyPI if missing.
+- **Sanity Check Before Deployment:** Added logic to perform a sanity check (`twine check`) on built packages before uploading them to ensure no build errors. Generates logs if issues are detected.
 
 ### Changed
 - **Deploy Command Enhancements:** Added robust prompts for deployment environments (TestPyPI/ProdPyPI) and ensured seamless transitions between them.
 - **Improved Developer Mode:** Enhanced developer mode workflows, including automated setup instructions and build commands tailored for development environments.
-- **Refactored `run_command`:** Updated to use spinners for better visibility of ongoing processes.
+- **Refactored `run_command`:** Updated to use spinners and log output for errors for better visibility of ongoing processes.
+- **Verbose Output for Deploys:** Enabled verbose flag in deployment commands for more transparent feedback, regardless of success or failure.
 
 ### Fixed
 - **Error Handling:** Resolved spinner hangs when handling errors during token updates.
 - **Configuration Sync:** Ensured the `load_config` function dynamically updates existing configurations when new keys are introduced to the default config.
 
+### Removed
+- **Token Management:** Implemented token management for PyPI deployments, allowing secure updates for TestPyPI and ProdPyPI tokens directly in the CLI.
+
 ---
 
-## [1.0.0] - 2025-01-14
+<h3 align="center"> [1.0.0] - 2025-01-14 </h3>
 
 ### Added
 - **GitHub Repository Management:**
