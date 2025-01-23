@@ -4,11 +4,15 @@ setup(
     name="apollo-o1",
     version="1.1.0-beta",
     description="An AI-powered Command-Line Interface designed to streamline the SDLC by automating project workflows, including source control, CI/CD, ticket and documentation generation, and other processes.",
-    long_description=open("README.md").read(),
+    long_description=open("CHANGELOG.md").read(),
     long_description_content_type="text/markdown",
     author="Stratum Labs",
     author_email="hq@stratumlabs.ai",
     url="https://github.com/dj-io/apollo",
+    project_urls={
+        "Code": "https://github.com/dj-io/apollo-o1",
+        "Documentation": "https://github.com/dj-io/apollo-o1/blob/main/README.md",
+    },
     packages=find_packages(),
     include_package_data=True,
     install_requires=[

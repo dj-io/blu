@@ -25,7 +25,7 @@
 
 ---
 
-<h3 align="center"> [1.0.0] - 2025-01-14 </h3>
+<h3 align="center"> [1.0.0-beta] - 2025-01-14 </h3>
 
 ### Added
 - **GitHub Repository Management:**

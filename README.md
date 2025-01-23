@@ -31,8 +31,7 @@ This tool simplifies tasks like managing source control repositories i.e Github,
 - [Contributing 💡](#contributing-💡)
   - [Developer Mode 🪄](#developer-mode-🪄)
     - [Setting Up Developer Mode](#setting-up-developer-mode)
-    - [Available Commands](#available-commands)
-    - [Additional Notes](#additional-notes)
+    - [Using Developer Mode](#using-developer-mode)
   - [Guidelines](#guidelines)
   - [Versioning](#versioning)
 - [License 📜](#license-📜 )  
@@ -195,11 +194,13 @@ Use cached GitHub username: <username>? (yes/no)
 
 ### Developer Mode 🪄: 
 
-### Setting up developer mode:
+### Setting up developer mode
  
  `Developer mode enables additional CLI commands (e.g., apollo build and apollo deploy) that are not available in production. Follow these steps to configure and use developer mode:`
 
-**1. Create Environemnt Files**
+---
+
+**1. Create Environment Files**
 
   - Navigate to the root directory of the project.
   - Create .env.dev and .env.prod files based on the provided .env.sample file.
@@ -211,8 +212,7 @@ Use cached GitHub username: <username>? (yes/no)
 - Edit the .env.dev and .env.prod files with your environment-specific variables. For example:
 
 ```bash
-  APOLLO_DEV_MODE=1
-  TEST_PYPI_TOKEN=your-test-pypi-token
+APOLLO_DEV_MODE=1
 ```
 
 **2. Enable Developer Mode.**
@@ -224,11 +224,14 @@ Run the following command in your terminal to enable developer mode:
 
 - This sets the ENV variable to dev, which ensures the script loads .env.dev and enables developer-specific features.
 
-**3. Using Developer Mode:**
+### Using Developer Mode
+
+Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy apollo.
+
+---
 
 **Available Commands**
 
-Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy apollo.
 
 1. **Build**
     
@@ -253,6 +256,7 @@ Developer mode commands are available for contributors to streamline package dev
         -	Select between TestPyPI or Prod PyPI.
         - Provide changelog or release notes.
         -	Confirm the deployment target.
+        - Automatically detects the .pypirc file and verifies its validity.
 
     - Example
 
@@ -261,8 +265,9 @@ Developer mode commands are available for contributors to streamline package dev
       apollo deploy --prod  # Deploy to Prod PyPI
       ```
 
- **4. Additional Notes**
-      
+**Additional Notes**
+
+  
   - `The deploy command is only executable with credentials provided upon request`
   - **Switching Modes**:
     - To switch back to production mode, run:
@@ -271,13 +276,38 @@ Developer mode commands are available for contributors to streamline package dev
     ```
     - This switch happens automatically during deployments.
 
-  - Ensure you have set up your **TestPypi** and **ProdPypi** API tokens as environment variables:
-      ```bash
-      export TEST_PYPI_TOKEN="your-test-token"
-      export PYPI_TOKEN="your-prod-token"
+  - **Ensuring a Valid** `.pypirc` **File Exists**:
+
+    The deploy command relies on the `.pypirc` configuration file for TestPyPI and ProdPyPI deployments:
+
+    **- Automatic Detection**
+    - The CLI **automatically** detects the `.pypirc` file in your home directory **(~/.pypirc)** during deployment.
+
+    - If the file is missing or lacks the necessary credentials for TestPyPI or ProdPyPI, the CLI will prompt you to create or update it.
+
+    **- Structure of** .pypirc:
+
+    Ensure your .pypirc file contains the correct repository configuration:
+      ```ini
+      [distutils]
+      index-servers =
+          pypi
+          testpypi
+
+      [pypi]
+      repository = https://upload.pypi.org/legacy/
+      username = __token__
+      password = your-prod-token
+
+      [testpypi]
+      repository = https://test.pypi.org/legacy/
+      username = __token__
+      password = your-test-token
       ```
-    - If you want to update the tokens, the apollo deploy command will prompt you automatically if the    
-    environment variables are not found.
+
+    **- Prompts for Missing Credentials**:
+
+    - **DON'T WORRY**,	If the `.pypirc` file is incomplete (e.g., missing a repository, username, or password), the CLI will guide you through updating it!
   
   - Run `apollo --help` in developer mode to view the full list of available commands
   -  If you modify .env.dev or .env.prod, reload your environment variables:
@@ -296,7 +326,7 @@ Developer mode commands are available for contributors to streamline package dev
 - **Deploy Responsibly**: Always verify the environment (dev or prod) before running deployment commands to avoid accidental production deployments.
 
 ### Versioning:
-Given a version number `major.minor.patch`, increment the: 
+Given a version number `major.minor.patch`, all: 
 
   - Breaking backwards compatibility bumps the MAJOR
   - New additions without breaking backwards compatibility bumps the MINOR

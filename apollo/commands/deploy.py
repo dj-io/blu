@@ -9,7 +9,8 @@ from halo import Halo
 @click.option("--test", is_flag=True, help="Push the package to TestPyPI.")
 @click.option("--prod", is_flag=True, help="Push the package to Prod PyPI.")
 @click.option("--skip-sanity-check", is_flag=True, help="Skip the sanity check step before deployment")
-def deploy(test, prod, skip_sanity_check):
+@click.option("--verbose", is_flag=True, help="Useful for additon logging in the case of no deploys")
+def deploy(test, prod, skip_sanity_check, verbose):
     """
     Package and push the project to PyPI or TestPyPI.
     Use --test to push to TestPyPI, or --prod to push to Prod PyPI.
@@ -35,6 +36,7 @@ def deploy(test, prod, skip_sanity_check):
 
     # Confirm Deployment Environment
     env_choice = "testpypi" if test else "pypi"
+    verbose = "--verbose" if verbose else ""
     
     if not questionary.confirm(f"Are you sure you want to deploy to {env_choice}?").ask():
         spinner.fail("Deployment aborted.")
@@ -86,7 +88,7 @@ def deploy(test, prod, skip_sanity_check):
 
     # Push to PyPI or TestPyPI
     try:
-        run_command(f"python3 -m twine upload --repository {env_choice} dist/* --verbose", APOLLO_PATH, start=f"Pushing package to {env_choice}...")
+        run_command(f"python3 -m twine upload --repository {env_choice} dist/* {verbose}", APOLLO_PATH, start=f"Pushing package to {env_choice}...")
         spinner.succeed(f"Package successfully pushed to {env_choice}!")
     except Exception as e:
         spinner.fail(f"Deployment failed: {e}")
