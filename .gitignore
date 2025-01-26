@@ -4,6 +4,10 @@ __pycache__/
 *.pyo
 *.pyd
 
+# Test-related artifacts
+.pytest_cache/
+*.pytest_cache/
+
 # Distribution and build directories
 build/
 dist/

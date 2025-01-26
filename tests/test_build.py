@@ -8,7 +8,9 @@ from apollo.commands.build import build
 @patch("apollo.commands.build.load_config")
 @patch("apollo.commands.build.cache_apollo_path")
 @patch("apollo.commands.build.Halo")
-def test_build_retry(mock_halo, mock_cache_apollo_path, mock_load_config, mock_exists, mock_run_command):
+def test_build_retry(
+    mock_halo, mock_cache_apollo_path, mock_load_config, mock_exists, mock_run_command
+):
     """
     Test the `build` function when the user chooses to retry after a failure.
     """
@@ -28,9 +30,11 @@ def test_build_retry(mock_halo, mock_cache_apollo_path, mock_load_config, mock_e
 
     # Call the build function with a retry
     with patch("builtins.input", side_effect=["yes", "no"]):
-        build(lint_skip=True)
+        build(skip_lint=True)
 
     # Assertions
     mock_load_config.assert_called_once()
     mock_cache_apollo_path.assert_called_once()
-    mock_halo.return_value.start.assert_called_with("Waiting for fixes... Please resolve the issues before retrying.")
+    mock_halo.return_value.start.assert_called_with(
+        "Waiting for fixes... Please resolve the issues before retrying."
+    )

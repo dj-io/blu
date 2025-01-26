@@ -8,8 +8,15 @@
   <a href="https://github.com/dj-io/apollo-o1/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/dj-io/apollo-o1.svg" alt="License">
   </a>
-    <a href="https://github.com/dj-io/apollo-o1/actions">
+  <a href="https://github.com/dj-io/apollo-o1/actions">
     <img src="https://img.shields.io/badge/Tests-Passing-brightgreen" alt="Build Status">
+  </a>
+  <!-- <a href="https://coveralls.io/github/psf/apollo-o1?branch=main"> -->
+    <img src="https://img.shields.io/badge/coverage-36%25-brightgreen" alt="Coverage Status">
+  <!-- </a> -->
+  </a>
+    <a href="https://github.com/psf/black">
+    <img src="https://img.shields.io/badge/code%20style-black-000000.svg" alt="Code Style">
   </a>
 </p>
 
@@ -25,7 +32,7 @@ This tool simplifies tasks like managing source control repositories i.e Github,
   - [Installation](#installation)
 - [Usage 🛠](#usage-🛠️) ️
   - [Show Available Commands](#show-available-commands)
-  - [Apollo's First Script: `gh-create`](#apollos-first-script)
+  - [Show Command Features: `apollo <command> --help`](#show-command-features)
     - [Usage](#usage-1)
     - [Key Features](#key-features)
 - [Contributing 💡](#contributing-💡)
@@ -92,78 +99,65 @@ Options:
 
 Commands:
   gh-create  Create and push a new repository to GitHub.
+  gh-delete  Delete remote and local repositories, 1 by 1 or in bulk.
   gh-add     Push an existing local repository to a new GitHub repo.
 ```
 
-## Apollos First Script
 
-`apollo gh-create`
+### Show Command Features
 
-The `gh-create` command is one of the features that kicked off Apollo CLI.
-It allows developers to create a GitHub repository and push it from a local directory with minimal effort.
+Run the following to see a more descriptive output of commands features and usage:
+
+```bash
+apollo <command> --help
+```
+
+example output:
+```bash
+Usage: apollo gh-create [OPTIONS]
+
+  Create a new GitHub repository and initialize it locally.
+
+  Features:
+      - Allows you to specify a repository name and description.
+      - Option to choose whether the repository is public or private.
+      - Automatically initializes the repository with a README.
+      - Sets up a remote connection to GitHub using the GitHub CLI.
+
+
+  Considerations:
+      - Ensure you are authenticated with the GitHub CLI (`gh auth login`) before using this command.
+      - Requires the GitHub CLI installed locally.
+
+Options:
+  -h, --help  Show this message and exit.
+```
 
 ### Usage 🛠️
 
- **Prerequisites**:
-- Install [Github CLI](https://cli.github.com/) and authenticate using:
- ```bash
-gh auth login
- ```
- 
- - Ensure you have setup global Git configurations for Git username and email:
-
- ```bash
-git config --global user.name "Your Name"
-git config --global user.email "youremail@example.com"
-```
-
-**Command**:
-
-1. Run the command:
-
-```bash
-apollo gh-create
-```
-
-2. Follow the interactive prompts:
-    - Enter your GitHub username (cached for future runs).
-    - Choose or create a directory for the repository:
-	    - Use the current directory.
-	    - Select an existing directory.
-	    - Create a new directory.
-
-3.	Apollo o1 will handle the following automatically:
-	- Create the repository on GitHub.
-	- Initialize a local Git repository.
-	- Add a README.md file with the repository’s name and description.
-	- Push the local repository to GitHub.
-
 ### Key Features
 
-1. Interactive Directory Selection
+1. **Interactive Directory Selection**
 
-Apollo o1 automatically detects directories and provides multiple options:
-- Use the current working directory.
-- Select an existing directory from a list.
-- Create a new directory if needed.
+    Apollo o1 automatically detects directories and provides multiple options:
 
-**Example Prompt**:
-```bash
-Would you like to use the current directory as the parent directory? (yes/no)
-```
+    - Use the current working directory.
+    - Select an existing directory from a list.
+    - Create a new directory if needed.
 
-2. Persistent GitHub Username
+    **Example Prompt**:
+    ```bash
+    Would you like to use the current directory as the parent directory? (yes/no)
+    ```
 
-The CLI stores your GitHub username for future use, eliminating repetitive inputs. If the username is already cached, the CLI will prompt you to reuse it.
+2. **Caching**
 
-**Example Prompt**:
-```bash
-Use cached GitHub username: <username>? (yes/no)
-```
+    The CLI stores information and preferences needed for use with various integrations i.e GitHub username for future use, eliminating repetitive inputs. If the username is already cached, the CLI will prompt you to reuse it.
 
-3. GitHub Integration
-- Automatically creates the repository on GitHub using the gh CLI.
-- Adds a remote origin and pushes the code to GitHub.
+    **Example Prompt**:
+      ```bash
+      Using cached GitHub username: dj-io
+      ```
 
 
 # Contributing 💡
@@ -222,7 +216,7 @@ Run the following command in your terminal to enable developer mode:
   export ENV=dev
   ```
 
-- This sets the ENV variable to dev, which ensures the script loads .env.dev and enables developer-specific features.
+- This sets the ENV variable to dev for the current terminal session, which ensures the script loads .env.dev and enables developer-specific features.
 
 ### Using Developer Mode
 
@@ -264,6 +258,16 @@ Developer mode commands are available for contributors to streamline package dev
       apollo deploy --test  # Deploy to TestPyPI
       apollo deploy --prod  # Deploy to Prod PyPI
       ```
+
+3. **Clean up**
+    Use the apollo clean-up command to run linting checks and automatically resolve using `flake8` and `black`
+
+    ```bash
+    apollo clean-up
+    ```
+    -	The command includes prompts to:
+        -	Confirm clean-up action if linting issues are found.
+        - Traverses code base and runs black on each file with linting issues present
 
 **Additional Notes**
 
