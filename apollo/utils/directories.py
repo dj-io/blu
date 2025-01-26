@@ -139,7 +139,7 @@ def locate_local_repo(
         search_paths = [
             os.path.join(
                 home_directory,
-                "/Users/dj/Developer/dj-labs/engineering/packages/apollo-o1",
+                "Developer",
             ),
             home_directory,
         ]  # Default paths
