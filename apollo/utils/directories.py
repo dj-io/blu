@@ -96,28 +96,6 @@ def detect_directory():
     return handle_subdirectories(home_directory)
 
 
-# def locate_local_repo(repo_name):
-#     """
-#     Locate a local repository based on the name of the remote GitHub repository.
-
-#     :param repo_name: Name of the remote GitHub repository to find locally.
-#     :return: Path to the local repository if found, otherwise None.
-#     """
-#     home_directory = os.path.expanduser("~")
-#     search_paths = [os.path.join(home_directory, "Developer"), home_directory]  # Add prioritized search paths
-
-#     spinner.start(f"Searching for local repository matching '{repo_name}'...")
-
-#     for base_path in search_paths:
-#         for root, dirs, _ in os.walk(base_path):  # Traverse directories recursively
-#             if repo_name in dirs:  # If a directory matches the repo name
-#                 repo_path = os.path.join(root, repo_name)
-#                 spinner.succeed(f"Found local repository: {repo_path}")
-#                 return repo_path
-
-#     spinner.fail(f"No local repository found matching '{repo_name}'.")
-#     return None
-
 
 # search_paths, using_default_path params not in use see: config.py cache_search_paths notes
 def locate_local_repo(
