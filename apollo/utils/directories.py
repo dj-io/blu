@@ -99,7 +99,8 @@ def detect_directory():
 
 # search_paths, using_default_path params not in use see: config.py cache_search_paths notes
 def locate_local_repo(
-    repo_name,
+    repo_name=None,
+    file_name=None,
     search_paths=None,
     using_default_paths=False,
     max_displayed_paths=10,
@@ -127,11 +128,14 @@ def locate_local_repo(
     searched_paths = []  # Keep track of paths that were searched
 
     for base_path in set(search_paths):
-        for root, dirs, _ in os.walk(base_path):  # Traverse directories recursively
+        for root, dirs, files in os.walk(base_path):  # Traverse directories recursively
             searched_paths.append(root)  # Log the path being searched
 
             # Normalize case to ensure case-insensitive matching and filter out hidden directories: starting with `.`
-            matching_dirs = [d for d in dirs if not d.startswith(".") and d.lower() == repo_name]
+            matching_dirs = [
+                d for d in (dirs if repo_name else files)
+                if not d.startswith(".") and d.lower() == (repo_name if repo_name else file_name)
+            ]
 
             if matching_dirs:  # If a directory matches the repo name
                 repo_path = os.path.join(root, matching_dirs[0])

@@ -55,7 +55,7 @@ def gh_add():
                 )
             else:
                 # Try locating the repository
-                local_repo_path = locate_local_repo(repo_name)
+                local_repo_path = locate_local_repo(repo_name=repo_name)
 
                 if not local_repo_path:
                     spinner.fail(f"Local repository '{repo_name}' not found.")

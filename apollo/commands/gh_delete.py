@@ -97,7 +97,7 @@ def gh_delete():
                 spinner.succeed(f"Deleted remote repository: {repo}")
 
                 # Locate the local repository
-                local_path = locate_local_repo(repo)
+                local_path = locate_local_repo(repo_name=repo)
 
                 if local_path:
                     # Confirm and delete the local repository

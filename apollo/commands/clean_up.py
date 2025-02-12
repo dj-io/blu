@@ -8,12 +8,12 @@ spinner = Halo(spinner="dots")
 
 
 @click.option(
-    "--path",
+    "--file",
     type=str,
     default=None,
     help="Provide a specific path to run the clean up command on",
 )
-def clean_up(path):
+def clean_up(file):
     """Clean up and fix linting issues in the Apollo codebase.
 
     \b
@@ -74,12 +74,12 @@ def clean_up(path):
         spinner.succeed("Completed resolving linting issues.")
 
     # Handle path detection
-    if path:
-        located_path = locate_local_repo(path)
+    if file:
+        located_path = locate_local_repo(file_name=file)
 
         if not located_path:
             spinner.fail(
-                f"Specified path '{path}' could not be located. Please check the name and try again."
+                f"Specified path '{file}' could not be located. Please check the name and try again."
             )
             return
 
@@ -91,16 +91,16 @@ def clean_up(path):
             spinner.info("Exiting as the path was not confirmed.")
             return
 
-        path = located_path
+        file = located_path
     else:
-        path = "."
+        file = "."
 
     """
     Run the cleanup.
     Check if linting issues exist, execute cleanup with black if present
     """
     spinner.start("Running linting process...")
-    files_with_issues = run_flake8(path)
+    files_with_issues = run_flake8(file)
 
     if not files_with_issues:
         spinner.succeed("No linting issues found! 🎉")
@@ -121,12 +121,12 @@ def clean_up(path):
 
     # Run flake8 again to ensure no issues remain
     spinner.start("Re-checking linting after fixes...")
-    remaining_issues = run_flake8(path)
+    remaining_issues = run_flake8(file)
 
     if not remaining_issues:
         spinner.succeed("All linting issues resolved! Your code is clean! 🎉")
     else:
         spinner.warn(f"Some linting issues remain in {len(remaining_issues)} file(s).")
-        for file in remaining_issues:
-            print(f" - {file}")
+        for f in remaining_issues:
+            print(f" - {f}")
         spinner.info("Please review these files manually.")
