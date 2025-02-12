@@ -1,7 +1,7 @@
 import questionary
 from halo import Halo
 from apollo.utils.config import load_config, cache_gh_creds
-from apollo.utils.run_command import run_command
+from apollo.utils.run_command import run_command, graceful_exit
 from apollo.utils.directories import locate_local_repo
 
 spinner = Halo(spinner="dots")
@@ -34,10 +34,14 @@ def gh_delete():
         choices=["Single Deletion", "Bulk Deletion"],
     ).ask()
 
+    if delete_mode is None:
+        graceful_exit()
+
     # Fetch the repositories using GitHub CLI
     repos_output = run_command(
         "gh repo list --json name -q '.[].name'", start="Fetching repositories..."
     )
+
     repos = repos_output.strip().split("\n")
     total_repos = None
 
@@ -56,6 +60,9 @@ def gh_delete():
             ),
         ).ask()
 
+        if selected_repos is None:
+            graceful_exit()
+
         repos_to_delete = selected_repos
 
     elif delete_mode == "Bulk Deletion":
@@ -64,6 +71,9 @@ def gh_delete():
             "Select the repositories you want to delete:",
             choices=repos + ["Select All"],
         ).ask()
+
+        if selected_repos is None:
+            graceful_exit()
 
         if "Select All" in selected_repos:
             repos_to_delete = repos
@@ -87,6 +97,9 @@ def gh_delete():
             f"Are you sure you want to delete the remote repository '{repo}'?"
         ).ask()
 
+        if confirm_delete is None:
+            graceful_exit()
+
         if confirm_delete:
             try:
                 # Delete the remote repository
@@ -104,6 +117,9 @@ def gh_delete():
                     confirm_local_delete = questionary.confirm(
                         f"Local repository detected at '{local_path}'. Do you want to delete it?"
                     ).ask()
+
+                    if confirm_local_delete is None:
+                        graceful_exit()
 
                     if confirm_local_delete:
                         run_command(

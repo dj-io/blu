@@ -1,5 +1,6 @@
 import subprocess
 import os
+import sys
 from halo import Halo
 
 
@@ -23,6 +24,7 @@ def run_command(
 
         # Display the standard output
         return result.stdout.strip() if result.stdout else ""
+
     except subprocess.CalledProcessError as e:
         spinner.fail(f"{start} - Failed with error: ")
 
@@ -38,7 +40,14 @@ def run_command(
 
         if return_on_fail:
             return None
-        exit(1)
+        sys.exit(1)
+
+    except KeyboardInterrupt:
+        # Handle user interrupt (CTRL + C) and exit cleanly
+        spinner.warn(
+            f"\nProcess interrupted. while executing `{command}` Exiting cleanly... 🚪"
+        )
+        sys.exit(1)  # Exit gracefully
 
 
 def increment_version(APOLLO_PATH, version_type="patch"):
@@ -103,3 +112,11 @@ def increment_version(APOLLO_PATH, version_type="patch"):
     except Exception as e:
         spinner.fail(f"Failed to increment version in setup.py: {e}")
         exit(1)
+
+
+def graceful_exit():
+    spinner = Halo(spinner="dots")
+
+    """Handle SIGINT (CTRL+C) for the entire CLI process."""
+    spinner.warn("\nProcess interrupted. Exiting cleanly... 🚪")
+    sys.exit(1)

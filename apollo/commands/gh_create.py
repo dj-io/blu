@@ -1,10 +1,11 @@
 import os
 import questionary
 import subprocess
+import signal
 from halo import Halo
 from apollo.utils.config import load_config, save_config, cache_username, cache_gh_creds
 from apollo.utils.directories import create_directory, detect_directory, create_readme
-from apollo.utils.run_command import run_command
+from apollo.utils.run_command import run_command, graceful_exit
 
 
 def gh_create():
@@ -24,6 +25,8 @@ def gh_create():
     """
 
     # Load configuration
+    signal.signal(signal.SIGINT, graceful_exit)
+
     config = load_config()
 
     cache_username(config)
@@ -32,6 +35,7 @@ def gh_create():
     spinner = Halo(spinner="dots")
 
     # Confirm or select a directory
+
     if config["cached_directories"]:
         choices = config["cached_directories"] + [
             "Use Current Directory",
@@ -40,6 +44,9 @@ def gh_create():
         directory_choice = questionary.select(
             "Select a directory:", choices=choices
         ).ask()
+
+        if directory_choice is None:
+            graceful_exit()
 
         if directory_choice == "Use Current Directory":
             parent_dir = os.getcwd()
@@ -55,6 +62,10 @@ def gh_create():
         save_dir = questionary.confirm(
             f"Would you like to save '{parent_dir}' for future use?"
         ).ask()
+
+        if save_dir is None:
+            graceful_exit()
+
         if save_dir:
             spinner.start(f"Saving directory '{parent_dir}'...")
             config["cached_directories"].append(parent_dir)
@@ -63,8 +74,14 @@ def gh_create():
 
     # Prompt for repository details
     repo_name = questionary.text("Enter the repository name:").ask()
+    if repo_name is None:
+        graceful_exit()
     repo_description = questionary.text("Enter a description for the repository:").ask()
+    if repo_description is None:
+        graceful_exit()
     private = questionary.confirm("Should the repository be private?").ask()
+    if private is None:
+        graceful_exit()
 
     # Create the repository
     visibility = "private" if private else "public"
