@@ -21,7 +21,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["-h", "--help"])
 @click.group(
     context_settings=CONTEXT_SETTINGS,
     help=f"""
-        Apollo CLI - An AI-powered CLI for DevOps and project management workflows.
+        Apollo CLI - An AI-powered CLI Automating the entire Software Development Lifecycle
 
         Specify configs in the config.json file:\n
             /Users/{getpass.getuser()}/.config/apollo

@@ -8,9 +8,9 @@ spinner = Halo(spinner="dots")
 def get_subdirectories(base_path):
     """Retrieve immediate subdirectories of a given base path, excluding .git."""
     return {
-        d: os.path.join(base_path, d)
-        for d in os.listdir(base_path)
-        if os.path.isdir(os.path.join(base_path, d)) and d != ".git"
+        dir_name: os.path.join(base_path, dir_name)
+        for dir_name in os.listdir(base_path)
+        if os.path.isdir(os.path.join(base_path, dir_name)) and dir_name != ".git"
     }
 
 
@@ -54,7 +54,8 @@ def detect_directory():
 
             directory_choice = questionary.select(
                 "Select a subdirectory to use or create a new one:",
-                choices=list(subdirectories.keys()) + ["Use Current Directory", "Create a New Directory"],
+                choices=list(subdirectories.keys())
+                + ["Use Current Directory", "Create a New Directory"],
             ).ask()
 
             if directory_choice == "Use Current Directory":
@@ -96,7 +97,6 @@ def detect_directory():
     return handle_subdirectories(home_directory)
 
 
-
 # search_paths, using_default_path params not in use see: config.py cache_search_paths notes
 def locate_local_repo(
     repo_name,
@@ -126,18 +126,21 @@ def locate_local_repo(
 
     searched_paths = []  # Keep track of paths that were searched
 
-    for base_path in search_paths:
+    for base_path in set(search_paths):
         for root, dirs, _ in os.walk(base_path):  # Traverse directories recursively
             searched_paths.append(root)  # Log the path being searched
 
-            if repo_name in dirs:  # If a directory matches the repo name
-                repo_path = os.path.join(root, repo_name)
+            # Normalize case to ensure case-insensitive matching and filter out hidden directories: starting with `.`
+            matching_dirs = [d for d in dirs if not d.startswith(".") and d.lower() == repo_name]
+
+            if matching_dirs:  # If a directory matches the repo name
+                repo_path = os.path.join(root, matching_dirs[0])
                 spinner.succeed(f"Found local repository: {repo_path}")
                 return repo_path
 
     # Log the paths that were searched if no repository is found
     spinner.fail(f"No local repository found matching '{repo_name}'.")
-    print(f"\nPaths searched (max displayed paths = {max_displayed_paths}):")
+    print(f"\nPaths searched (showing up to {max_displayed_paths} paths):")
 
     # Limit the number of paths displayed
     displayed_paths = searched_paths[:max_displayed_paths]

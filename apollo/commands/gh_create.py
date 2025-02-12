@@ -2,7 +2,7 @@ import os
 import questionary
 import subprocess
 from halo import Halo
-from apollo.utils.config import load_config, save_config, cache_username
+from apollo.utils.config import load_config, save_config, cache_username, cache_gh_creds
 from apollo.utils.directories import create_directory, detect_directory, create_readme
 from apollo.utils.run_command import run_command
 
@@ -27,6 +27,7 @@ def gh_create():
     config = load_config()
 
     cache_username(config)
+    cache_gh_creds(config)
 
     spinner = Halo(spinner="dots")
 
@@ -89,7 +90,7 @@ def gh_create():
     # Write the README.md file
     create_readme(full_path, repo_name, repo_description)
 
-    git_url = f"https://github.com/{config["github_username"]}/{repo_name}.git"  # Adjust if using SSH
+    git_url = f"https://github.com/{config["github_username"]}/{repo_name}.git"
 
     # push the repository
     run_command("git init", cwd=full_path, start="Initializing Git repository...")

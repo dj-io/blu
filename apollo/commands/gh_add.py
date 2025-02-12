@@ -3,7 +3,7 @@ import re
 import subprocess
 import questionary
 from halo import Halo
-from apollo.utils.config import load_config, cache_username
+from apollo.utils.config import load_config, cache_username, cache_gh_creds
 from apollo.utils.run_command import run_command
 from apollo.utils.directories import locate_local_repo
 
@@ -36,6 +36,7 @@ def gh_add():
     config = load_config()
 
     cache_username(config)
+    cache_gh_creds(config)
 
     if use_current:
         local_repo_path = os.getcwd()
@@ -201,7 +202,7 @@ def gh_add():
         f"Do you want to push the local repository to the remote repository '{repo_name}'?"
     ).ask()
 
-    git_url = f"https://github.com/{config["github_username"]}/{repo_name}.git"  # Adjust if using SSH
+    git_url = f"https://github.com/{config["github_username"]}/{repo_name}.git"
 
     if confirm_push:
         try:

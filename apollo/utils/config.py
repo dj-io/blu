@@ -3,6 +3,7 @@ import json
 import questionary
 from halo import Halo
 import configparser
+from apollo.utils.run_command import run_command
 
 CONFIG_DIR = os.path.join(os.path.expanduser("~"), ".config", "apollo")
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
@@ -142,6 +143,7 @@ def ensure_pypirc(test):
             update_credentials = questionary.confirm(
                 "Would you like to add credentials now?"
             ).ask()
+
             if update_credentials:
                 username = questionary.text(
                     f"Enter your {repository} username (e.g., '__token__'):"
@@ -254,3 +256,186 @@ def cache_search_paths(config):
         )
 
     return config["search_paths"], config["using_default_paths"]
+
+
+# GH AUTH
+
+
+def cache_gh_creds(config):
+    """Check cached GitHub credentials before running any GH checks."""
+
+    # If everything is cached, skip setup
+    if (
+        config.get("gh_installed")
+        and config.get("git_configured")
+        and config.get("gh_authenticated")
+    ):
+        spinner.succeed("All GitHub credentials are already set (cached).")
+        return True
+
+    # Run checks only if missing
+    if not config.get("gh_installed"):
+        config["gh_installed"] = check_gh_installed()
+    if not config.get("git_configured"):
+        config["git_configured"] = check_git_config()
+    if not config.get("gh_authenticated"):
+        config["gh_authenticated"] = check_gh_auth()
+
+    save_config(config)
+    return (
+        config["gh_installed"]
+        and config["git_configured"]
+        and config["gh_authenticated"]
+    )
+
+
+def check_gh_installed():
+    """Check if GitHub CLI is installed and install it if necessary."""
+    try:
+        result = run_command("gh --version", start="Checking for GitHub CLI...")
+        if result:
+            spinner.succeed("GitHub CLI is already installed.")
+            return True
+    except Exception:
+        pass
+
+    available_managers = detect_package_manager()
+    if not available_managers:
+        spinner.warn(
+            "No supported package manager found. Please install GitHub CLI manually."
+        )
+        return False
+
+    selected_choice = questionary.select(
+        "Select a package manager to install GitHub CLI:",
+        choices=[
+            (f"{mgr} (Recommended)" if i == 0 else mgr, cmd)
+            for i, (mgr, cmd) in enumerate(available_managers)
+        ],
+    ).ask()
+
+    install_command = next(
+        cmd for mgr, cmd in available_managers if mgr in selected_choice
+    )
+    if questionary.confirm(f"Install GitHub CLI using {selected_choice}?").ask():
+        run_command(
+            install_command, start=f"Installing GitHub CLI using {selected_choice}..."
+        )
+        spinner.succeed("GitHub CLI installed successfully.")
+        return True
+
+    return False
+
+
+def check_git_config():
+    """Check and prompt the user to set up Git global configuration if missing."""
+    git_cred = run_command("git config --global credential.helper", start="checking credential helper...")
+    git_name = run_command("git config --global user.name", start="checking global config: username...")
+    git_email = run_command("git config --global user.email", start="checking global config: email...")
+
+    # Identify missing configurations
+    missing = {
+        "credential.helper": git_cred,
+        "user.name": git_name,
+        "user.email": git_email,
+    }
+
+    # If everything is set, exit early
+    if all(missing.values()):
+        spinner.succeed("Git global configuration is correctly set.")
+        return True
+
+    spinner.warn(
+        f"Missing Git global configuration: {', '.join(k for k, v in missing.items() if not v)}"
+    )
+
+    # Set Credential Helper First
+    if not git_cred:
+        git_cred = questionary.select(
+            "Choose a Git authentication method:",
+            choices=[
+                "cache (Temporarily stores credentials)",
+                "store (Saves credentials in plaintext)",
+                "manager (Uses system credential manager, Windows only)",
+                "osxkeychain (MacOS Keychain, Mac only)",
+                "gpg (For signing commits, advanced users)",
+            ],
+        ).ask()
+        run_command(
+            f'git config --global credential.helper "{git_cred.split()[0]}"',
+            start="Setting Git credential helper...",
+        )
+
+    # Set User Name and Email After Credential Helper
+    if not git_name:
+        git_name = questionary.text("Enter your Git user name:").ask()
+        run_command(
+            f'git config --global user.name "{git_name}"',
+            start="Setting Git user name...",
+        )
+
+    if not git_email:
+        git_email = questionary.text("Enter your Git user email:").ask()
+        run_command(
+            f'git config --global user.email "{git_email}"',
+            start="Setting Git user email...",
+        )
+
+    spinner.succeed("Git global configuration updated successfully.")
+    return True
+
+
+def check_gh_auth():
+    """Check GitHub authentication and prompt user if needed."""
+    try:
+        result = run_command(
+            "gh auth status",
+            start="Checking GitHub authentication...",
+        )
+        if "Logged in" in result:
+            spinner.succeed("GitHub authentication is already set up.")
+            return True
+    except Exception:
+        pass
+
+    if questionary.confirm(
+        "GitHub authentication is not set up. Would you like to log in now?"
+    ).ask():
+        run_command("gh auth login", start="Setting up GitHub authentication...")
+        return check_gh_auth()
+
+    spinner.warn(
+        "You will need to manually enter credentials when using GitHub CLI commands."
+    )
+    return False
+
+
+def detect_package_manager():
+    """Detect available package managers dynamically for installing GitHub CLI."""
+    package_managers = {
+        "Darwin": [
+            ("brew", "brew install gh"),
+            ("port", "sudo port install gh"),
+        ],  # macOS
+        "Linux": [
+            ("apt", "sudo apt update && sudo apt install gh -y"),
+            ("dnf", "sudo dnf install gh -y"),
+            ("pacman", "sudo pacman -S github-cli"),
+            ("zypper", "sudo zypper install gh"),
+            ("snap", "sudo snap install gh"),
+            ("flatpak", "flatpak install flathub com.github.cli"),
+        ],
+        "Windows": [
+            ("winget", "winget install --id GitHub.cli -e"),
+            ("choco", "choco install gh"),
+            ("scoop", "scoop install gh"),
+        ],
+    }
+
+    os_type = os.uname().sysname
+    available_managers = [
+        (mgr, cmd)
+        for mgr, cmd in package_managers.get(os_type, [])
+        if run_command(f"command -v {mgr}", start="Detecting package managers...")
+    ]
+    return available_managers

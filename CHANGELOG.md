@@ -1,5 +1,33 @@
 <h1 align="center"> 📜 Change Log </h1>
 
+
+<h3 align="center"> [1.1.4-beta] - 2025-01-21 </h3>
+
+### Added
+- **GitHub CLI Setup Automation**
+	- Added github auth & credentials setup to detect, install and authenticate Github CLI (gh) Automatically 
+		- If gh is not installed, users are prompted to install it using their available package manager.
+		- Git authentication (gh auth status) is checked and set up if missing.
+		- Global Git Config Check: Ensures git user.name, git user.email, and git credential.helper are correctly set.
+
+- **Enhanced clean-up Command**:
+	- Supports targeted linting via --path, allowing users to clean specific files or directories.
+	- If no path is provided, it defaults to running flake8 across the entire project.
+	- Auto-resolves flake8 issues using black.
+	- Improved UI/UX prompts to guide users through lint fixes.
+
+### Changed
+- **Improved locate_local_repo Utility**:
+	- Now ignores hidden directories and files (e.g., .git, .config).
+	- Performance optimization: Removed redundant filtering steps for better efficiency.
+	- Better logging: Lists all searched paths when no match is found.
+
+### Fixed
+
+### Removed
+
+---
+
 <h3 align="center"> [1.1.0-beta] - 2025-01-21 </h3>
 
 ### Added

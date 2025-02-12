@@ -20,7 +20,7 @@
   </a>
 </p>
 
-Apollo-o1 CLI is a Python-based, AI Powered, command-line interface designed to enhance the Software Development Life Cycle experience by automating devOps and project management workflows. 
+Apollo-o1 CLI is a Python-based, AI Powered, command-line interface designed to streamline the SDLC by automating project workflows. Includes automations for source control, CI/CD, ticket and documentation generation, and other processes. 
 
 This tool simplifies tasks like managing source control repositories i.e Github, CI/CD i.e github actions, Project management workflows and more, allowing teams to focus on building and delivering software efficiently.
 
@@ -132,8 +132,6 @@ Usage: apollo gh-create [OPTIONS]
 Options:
   -h, --help  Show this message and exit.
 ```
-
-### Usage 🛠️
 
 ### Key Features
 

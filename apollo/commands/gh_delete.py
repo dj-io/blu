@@ -1,5 +1,6 @@
 import questionary
 from halo import Halo
+from apollo.utils.config import load_config, cache_gh_creds
 from apollo.utils.run_command import run_command
 from apollo.utils.directories import locate_local_repo
 
@@ -21,6 +22,11 @@ def gh_delete():
         - Ensure you have admin rights and delete permissions for the GitHub repository.
         - Ensure that you want to permanently delete the selected repositories as this action cannot be undone.
     """
+
+    # load config
+    config = load_config()
+
+    cache_gh_creds(config)
 
     # Determine single or bulk deletion
     delete_mode = questionary.select(
