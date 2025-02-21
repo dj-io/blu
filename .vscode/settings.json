@@ -1,5 +1,0 @@
-{
-    "python.languageServer": "Pylance",
-    "explorer.fileNesting.enabled": true,
-    "explorer.compactFolders": false
-}
