@@ -1,17 +1,17 @@
 
- <h1 align="center"> Apollo CLI 🌔 </h1>
+ <h1 align="center"> Sunday CLI 🌔 </h1>
 
 <p align="center">
-  <a href="https://pypi.org/project/apollo-o1/1.0.0/">
-    <img src="https://img.shields.io/pypi/v/apollo-o1.svg" alt="PyPI Version">
+  <a href="https://pypi.org/project/sunday-cli/0.1.0/">
+    <img src="https://img.shields.io/pypi/v/sunday-cli.svg" alt="PyPI Version">
   </a>
-  <a href="https://github.com/dj-io/apollo-o1/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/dj-io/apollo-o1.svg" alt="License">
+  <a href="https://github.com/dj-io/sunday/blob/main/sunday-cli/LICENSE">
+    <img src="https://img.shields.io/github/license/dj-io/sunday.svg" alt="License">
   </a>
-  <a href="https://github.com/dj-io/apollo-o1/actions">
+  <a href="https://github.com/dj-io/sunday-cli/actions">
     <img src="https://img.shields.io/badge/Tests-Passing-brightgreen" alt="Build Status">
   </a>
-  <!-- <a href="https://coveralls.io/github/psf/apollo-o1?branch=main"> -->
+  <!-- <a href="https://coveralls.io/github/psf/sunday?branch=main"> -->
     <img src="https://img.shields.io/badge/coverage-36%25-brightgreen" alt="Coverage Status">
   <!-- </a> -->
   </a>
@@ -20,7 +20,7 @@
   </a>
 </p>
 
-Apollo-o1 CLI is a Python-based, AI Powered, command-line interface designed to streamline the SDLC by automating project workflows. Includes automations for source control, CI/CD, ticket and documentation generation, and other processes. 
+Sunday CLI is an, AI Powered, command-line interface designed to streamline the SDLC by automating project workflows. Includes automations for source control, CI/CD, ticket and documentation generation, and other processes. 
 
 This tool simplifies tasks like managing source control repositories i.e Github, CI/CD i.e github actions, Project management workflows and more, allowing teams to focus on building and delivering software efficiently.
 
@@ -32,7 +32,7 @@ This tool simplifies tasks like managing source control repositories i.e Github,
   - [Installation](#installation)
 - [Usage 🛠](#usage-🛠️) ️
   - [Show Available Commands](#show-available-commands)
-  - [Show Command Features: `apollo <command> --help`](#show-command-features)
+  - [Show Command Features: `sun <command> --help`](#show-command-features)
     - [Usage](#usage-1)
     - [Key Features](#key-features)
 - [Contributing 💡](#contributing-💡)
@@ -58,41 +58,41 @@ basic visualizations.
 Ensure you have the following installed:
 
 - **Python3** for running the scripts in this repo
-- **Pip3** pythons package manager used to install the pypi package apollo
+- **Pip3** pythons package manager used to install the pypi package sunday 
 
 ## Installation
 
-### Via [PyPI](https://pypi.org/project/apollo-o1/1.0.0/)
+### Via [PyPI](https://pypi.org/project/sunday-cli/0.1.0/)
 
 Install the latest version using `pip`:
 
 ```bash
-pip install apollo
+pip install sunday
 ```
 
 ### Via Source
 
 Clone the repository and install it locally:
 ```bash
-git clone https://github.com/dj-io/apollo-cli.git
-cd apollo-o1
+git clone https://github.com/dj-io/sunday/sunday-cli.git
+cd sunday-cli
 pip install -r requirements.txt
 ```
 
 ## Usage 🛠
 
-Apollo o1 provides a collection of commands designed to streamline your development workflows. After installation, the apollo command is available in your terminal.
+Sunday provides a collection of commands designed to streamline your development workflows. After installation, the sun command is available in your terminal.
 
 ### Show Available Commands
 
 Run the following to see a list of available commands and their descriptions:
 ```bash
-apollo --help
+sun --help
 ```
 
 example output:
 ```bash
-Usage: apollo [OPTIONS] COMMAND [ARGS]...
+Usage: sun [OPTIONS] COMMAND [ARGS]...
 
 Options:
   --help  Show this message and exit.
@@ -109,12 +109,12 @@ Commands:
 Run the following to see a more descriptive output of commands features and usage:
 
 ```bash
-apollo <command> --help
+sun <command> --help
 ```
 
 example output:
 ```bash
-Usage: apollo gh-create [OPTIONS]
+Usage: sun gh-create [OPTIONS]
 
   Create a new GitHub repository and initialize it locally.
 
@@ -137,7 +137,7 @@ Options:
 
 1. **Interactive Directory Selection**
 
-    Apollo o1 automatically detects directories and provides multiple options:
+    Sunday automatically detects directories and provides multiple options:
 
     - Use the current working directory.
     - Select an existing directory from a list.
@@ -164,7 +164,7 @@ Options:
 
 1. Fork the repository.
     ```bash
-    gh repo fork https://github.com/dj-io/apollo-o1.git --remote=true
+    gh repo fork https://github.com/dj-io/sunday.git --remote=true
     ```
 
 2. Create a new branch to your feature or bug fix:
@@ -188,7 +188,7 @@ Options:
 
 ### Setting up developer mode
  
- `Developer mode enables additional CLI commands (e.g., apollo build and apollo deploy) that are not available in production. Follow these steps to configure and use developer mode:`
+ `Developer mode enables additional CLI commands (e.g., sun build and sun deploy) that are not available in production. Follow these steps to configure and use developer mode:`
 
 ---
 
@@ -204,7 +204,7 @@ Options:
 - Edit the .env.dev and .env.prod files with your environment-specific variables. For example:
 
 ```bash
-APOLLO_DEV_MODE=1
+SUN_DEV_MODE=1
 ```
 
 **2. Enable Developer Mode.**
@@ -218,7 +218,7 @@ Run the following command in your terminal to enable developer mode:
 
 ### Using Developer Mode
 
-Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy apollo.
+Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy sunday.
 
 ---
 
@@ -227,10 +227,10 @@ Developer mode commands are available for contributors to streamline package dev
 
 1. **Build**
     
-     Use the apollo build command to rebuild the package during development. This ensures all changes to the codebase are reflected in the package.
+     Use the sunday build command to rebuild the package during development. This ensures all changes to the codebase are reflected in the package.
 
     ```bash
-    apollo build
+    sun build
     ```
     - **The command includes prompts to**:
       - Cleans up old build artifacts.
@@ -239,10 +239,10 @@ Developer mode commands are available for contributors to streamline package dev
       - Automatically installs missing dependencies from `requirements.txt`
 
 2. **Deploy**
-    Use the apollo deploy command to package and deploy the CLI to PyPI (or TestPyPI)
+    Use the sunday deploy command to package and deploy the CLI to PyPI (or TestPyPI)
 
     ```bash
-    apollo deploy
+    sun deploy
     ```
     -	The command includes prompts to:
         -	Select between TestPyPI or Prod PyPI.
@@ -253,15 +253,15 @@ Developer mode commands are available for contributors to streamline package dev
     - Example
 
       ```bash
-      apollo deploy --test  # Deploy to TestPyPI
-      apollo deploy --prod  # Deploy to Prod PyPI
+      sun deploy --test  # Deploy to TestPyPI
+      sun deploy --prod  # Deploy to Prod PyPI
       ```
 
 3. **Clean up**
-    Use the apollo clean-up command to run linting checks and automatically resolve using `flake8` and `black`
+    Use the sunday clean-up command to run linting checks and automatically resolve using `flake8` and `black`
 
     ```bash
-    apollo clean-up
+    sun clean-up
     ```
     -	The command includes prompts to:
         -	Confirm clean-up action if linting issues are found.
@@ -311,7 +311,7 @@ Developer mode commands are available for contributors to streamline package dev
 
     - **DON'T WORRY**,	If the `.pypirc` file is incomplete (e.g., missing a repository, username, or password), the CLI will guide you through updating it!
   
-  - Run `apollo --help` in developer mode to view the full list of available commands
+  - Run `sun --help` in developer mode to view the full list of available commands
   -  If you modify .env.dev or .env.prod, reload your environment variables:
       ```bash
       source ~/.zshrc  # For Zsh
@@ -324,7 +324,7 @@ Developer mode commands are available for contributors to streamline package dev
 - Ensure your code is well-documented and adheres to **PEP 8** standards.
 - Add **tests** for any new features or bug fixes.
 - **Do Not Commit Sensitive Data**: Ensure .env.dev and .env.prod are excluded from version control by including them in .gitignore.
-- **Testing Locally**: Use apollo build to test changes locally before deploying to PyPI or TestPyPI.
+- **Testing Locally**: Use `sun build` to test changes locally before deploying to PyPI or TestPyPI.
 - **Deploy Responsibly**: Always verify the environment (dev or prod) before running deployment commands to avoid accidental production deployments.
 
 ### Versioning:
@@ -344,7 +344,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 # Acknowledgments 🙏
 
-Apollo o1 is inspired by the need to streamline development workflows. Special thanks to all future contributors who will help shape this project.
+`Sunday` is inspired by the need to streamline development workflows. Special thanks to all future contributors who will help shape this project.
 
 <!-- ### Technologies Used 📚
 

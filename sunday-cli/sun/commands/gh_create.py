@@ -3,9 +3,9 @@ import questionary
 import subprocess
 import signal
 from halo import Halo
-from apollo.utils.config import load_config, save_config, cache_username, cache_gh_creds
-from apollo.utils.directories import create_directory, detect_directory, create_readme
-from apollo.utils.run_command import run_command, graceful_exit
+from sun.utils.config import load_config, save_config, cache_username, cache_gh_creds
+from sun.utils.directories import create_directory, detect_directory, create_readme
+from sun.utils.run_command import run_command, graceful_exit
 
 
 def gh_create():

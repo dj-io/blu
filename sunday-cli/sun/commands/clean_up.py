@@ -1,8 +1,8 @@
 import questionary
 from halo import Halo
-from apollo.utils.config import load_config, cache_apollo_path
-from apollo.utils.run_command import run_command
-from apollo.utils.directories import locate_local_repo
+from sun.utils.config import load_config, cache_sun_path
+from sun.utils.run_command import run_command
+from sun.utils.directories import locate_local_repo
 import click
 
 spinner = Halo(spinner="dots")
@@ -15,7 +15,7 @@ spinner = Halo(spinner="dots")
     help="Provide a specific path to run the clean up command on",
 )
 def clean_up(file):
-    """Clean up and fix linting issues in the Apollo codebase.
+    """Clean up and fix linting issues in the Sunday codebase.
 
     \b
     Features:
@@ -34,10 +34,10 @@ def clean_up(file):
 
     config = load_config()
 
-    # ensure apollo path has been set
-    cache_apollo_path(config)
+    # ensure sunday path has been set
+    cache_sun_path(config)
 
-    APOLLO_PATH = config["apollo_path"]
+    SUN_PATH = config["sun_path"]
 
     def run_flake8(target):
         """
@@ -47,7 +47,7 @@ def clean_up(file):
         try:
             output = run_command(
                 f"flake8 {target} --ignore=E501,W503 --format=default",
-                cwd=APOLLO_PATH,
+                cwd=SUN_PATH,
                 start=f"Checking for linting issues in {target}...",
                 show_except=True,
                 return_on_fail=False,
@@ -77,7 +77,7 @@ def clean_up(file):
                 # Use Black for formatting the file
                 run_command(
                     f"black {file_path}",
-                    cwd=APOLLO_PATH,
+                    cwd=SUN_PATH,
                     start=f"Auto-formatting {file_path}",
                 )
                 spinner.succeed(f"Formatted: {file_path}")

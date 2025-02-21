@@ -1,7 +1,8 @@
 import os
 import questionary
 from halo import Halo
-from apollo.utils.docs import extract_docstrings_and_functions
+from sun.utils.docs import extract_docstrings_and_functions
+from sun.utils.run_command import graceful_exit
 
 spinner = Halo(spinner="dots")
 
@@ -75,9 +76,15 @@ def detect_directory():
                 return base_path
             elif directory_choice == "Create a New Directory":
                 new_directory = questionary.path(
-                    "Enter the path for the new directory:"
+                    "Enter the name of the new directory:"
                 ).ask()
-                create_directory(new_directory)
+
+                dir_path = os.path.join(base_path, new_directory)
+                create_directory(dir_path)
+
+                if not new_directory:
+                    graceful_exit()
+
                 return new_directory
             else:
                 # Navigate into the selected subdirectory

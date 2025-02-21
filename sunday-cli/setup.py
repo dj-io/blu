@@ -1,17 +1,17 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="apollo-o1",
-    version="1.1.3",
+    name="sunday-cli",
+    version="0.0.0",
     description="Automate the entire Software Development Lifecycle.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Stratum Labs",
     author_email="hq@stratumlabs.ai",
-    url="https://github.com/dj-io/apollo",
+    url="https://github.com/dj-io/sunday",
     project_urls={
-        "Code": "https://github.com/dj-io/apollo-o1",
-        "Documentation": "https://github.com/dj-io/apollo-o1/blob/main/README.md",
+        "Code": "https://github.com/dj-io/sunday",
+        "Documentation": "https://github.com/dj-io/sunday/blob/main/sunday-cli/README.md",
     },
     packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,
@@ -28,7 +28,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "apollo=apollo.main:apollo",  # Maps the `apollo` command to the `apollo()` group function
+            "sun=sun.main:sunday",  # Maps the `sun` command to the `sunday()` group function
         ],
     },
     classifiers=[

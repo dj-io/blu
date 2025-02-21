@@ -1,4 +1,4 @@
-from apollo.utils.config import load_config, cache_username
+from sun.utils.config import load_config, cache_username
 from halo import Halo
 
 

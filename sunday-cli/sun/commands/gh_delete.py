@@ -1,8 +1,8 @@
 import questionary
 from halo import Halo
-from apollo.utils.config import load_config, cache_gh_creds
-from apollo.utils.run_command import run_command, graceful_exit
-from apollo.utils.directories import locate_local_repo
+from sun.utils.config import load_config, cache_gh_creds
+from sun.utils.run_command import run_command, graceful_exit
+from sun.utils.directories import locate_local_repo
 
 spinner = Halo(spinner="dots")
 

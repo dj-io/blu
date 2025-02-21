@@ -3,14 +3,14 @@ import json
 import questionary
 from halo import Halo
 import configparser
-from apollo.utils.run_command import run_command
+from sun.utils.run_command import run_command
 
-CONFIG_DIR = os.path.join(os.path.expanduser("~"), ".config", "apollo")
+CONFIG_DIR = os.path.join(os.path.expanduser("~"), ".config", "sunday")
 CONFIG_FILE = os.path.join(CONFIG_DIR, "config.json")
 DEFAULT_CONFIG = {
     "github_username": None,
     "cached_directories": [],
-    "apollo_path": None,
+    "sun_path": None,
 }
 spinner = Halo(spinner="dot")
 
@@ -72,18 +72,17 @@ def cache_username(config):
     return config["github_username"]
 
 
-def cache_apollo_path(config):
-    # Cache apollo path
-    if not config["apollo_path"]:
-        APOLLO_PATH = os.getcwd()
-        config["apollo_path"] = APOLLO_PATH
+def cache_sun_path(config):
+    if not config["sun_path"]:
+        SUN_PATH = os.getcwd()
+        config["sun_path"] = SUN_PATH
 
         save_config(config)
-        spinner.info(f"Apollo Path set as {APOLLO_PATH}")
+        spinner.info(f"Sunday Path set as {SUN_PATH}")
     else:
-        spinner.info(f"Using cached Path: '{config["apollo_path"]}'")
+        spinner.info(f"Using cached Path: '{config["sun_path"]}'")
 
-    return config["apollo_path"]
+    return config["sun_path"]
 
 
 def ensure_pypirc(test):

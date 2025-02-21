@@ -1,5 +1,5 @@
-from apollo.utils.run_command import run_command
-from apollo.utils.config import load_config, cache_apollo_path
+from sun.utils.run_command import run_command
+from sun.utils.config import load_config, cache_sun_path
 from halo import Halo
 import os
 import subprocess
@@ -8,7 +8,7 @@ import click
 
 @click.option("--skip-lint", is_flag=True, help="Build without linting checks")
 def build(skip_lint):
-    """Build and prepare the Apollo package for distribution.
+    """Build and prepare the Sunday package for distribution.
 
     \b
     Features:
@@ -25,14 +25,14 @@ def build(skip_lint):
 
     config = load_config()
 
-    # ensure apollo path has been set
-    cache_apollo_path(config)
+    # ensure sun path has been set
+    cache_sun_path(config)
 
     # run pwd from project dir to update path
-    APOLLO_PATH = config["apollo_path"]
+    SUN_PATH = config["sun_path"]
 
     # run pwd from project dir to update path in .config file
-    REQUIREMENTS_FILE = os.path.join(APOLLO_PATH, "requirements.txt")
+    REQUIREMENTS_FILE = os.path.join(SUN_PATH, "requirements.txt")
 
     spinner = Halo(spinner="dots")
 
@@ -40,7 +40,7 @@ def build(skip_lint):
         try:
             run_command(
                 f"pip3 install -r {REQUIREMENTS_FILE}",
-                APOLLO_PATH,
+                SUN_PATH,
                 start="Checking for dependencies...",
             )
             spinner.succeed("requirements.txt found. Installing dependencies...")
@@ -51,12 +51,12 @@ def build(skip_lint):
         # Step 2: Verify code quality and run tests
     try:
         if not skip_lint:
-            run_command("flake8 --ignore=E501,W503 .", APOLLO_PATH, start="Checking code quality...")
+            run_command("flake8 --ignore=E501,W503 .", SUN_PATH, start="Checking code quality...")
             spinner.succeed("Code quality checks passed.")
 
         run_command(
             "pytest --maxfail=1 --disable-warnings",
-            APOLLO_PATH,
+            SUN_PATH,
             start="Running tests...",
         )
         spinner.succeed("All tests passed.")
@@ -77,19 +77,19 @@ def build(skip_lint):
         try:
             run_command(
                 "rm -rf dist/ build/ *.egg-info",
-                APOLLO_PATH,
+                SUN_PATH,
                 start="Cleaning up old build artifacts...",
             )
             spinner.succeed("Old build artifacts cleaned up.")
 
             run_command(
-                "python3 -m build", APOLLO_PATH, start="Building the package..."
+                "python3 -m build", SUN_PATH, start="Building the package..."
             )
             spinner.succeed("Package built successfully.")
 
             run_command(
                 "pip3 install dist/*.whl --force-reinstall",
-                APOLLO_PATH,
+                SUN_PATH,
                 start="Installing locally for testing...",
             )
             spinner.succeed("Package installed locally for testing.")
