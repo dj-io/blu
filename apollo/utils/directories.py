@@ -1,6 +1,7 @@
 import os
 import questionary
 from halo import Halo
+from apollo.utils.docs import extract_docstrings_and_functions
 
 spinner = Halo(spinner="dots")
 
@@ -30,6 +31,15 @@ def create_readme(path, repo_name, repo_description):
     with open(readme_path, "w") as readme_file:
         readme_file.write(f"# {repo_name}\n\n{repo_description}")
     spinner.succeed(f"README.md created in '{path}'!")
+
+
+def save_readme(content, path):
+    """
+    Save the generated README content locally.
+    """
+    with open(path, "w") as file:
+        file.write(content)
+    spinner.succeed("README successfully saved.")
 
 
 def detect_directory():
@@ -133,8 +143,10 @@ def locate_local_repo(
 
             # Normalize case to ensure case-insensitive matching and filter out hidden directories: starting with `.`
             matching_dirs = [
-                d for d in (dirs if repo_name else files)
-                if not d.startswith(".") and d.lower() == (repo_name if repo_name else file_name)
+                d
+                for d in (dirs if repo_name else files)
+                if not d.startswith(".")
+                and d.lower() == (repo_name if repo_name else file_name)
             ]
 
             if matching_dirs:  # If a directory matches the repo name
@@ -159,3 +171,40 @@ def locate_local_repo(
         )
 
     return None
+
+
+def retrieve_repo_context(repo_path):
+    """
+    Extracts meaningful content from the repository for RAG-based DOCUMENTATION generation.
+    - Retrieves file names, folder structures, and README-adjacent files.
+    - Extracts docstrings, function/class signatures, and project metadata.
+    """
+    spinner.start("Retrieving repository context...")
+
+    repo_structure = []
+    code_snippets = []
+
+    for root, _, files in os.walk(repo_path):
+        # Ignore hidden files/folders
+        files = [f for f in files if not f.startswith(".")]
+
+        # Collect file structure
+        repo_structure.append(f"📁 {root.replace(repo_path, '') or '/'}")
+        for file in files:
+            repo_structure.append(f"  📄 {file}")
+
+            # Extract Python docstrings and function definitions from code files
+            if file.endswith((".py", ".md", ".json")):
+                file_path = os.path.join(root, file)
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()
+
+                # Extract docstrings and function/class definitions
+                extracted_snippets = extract_docstrings_and_functions(lines)
+                if extracted_snippets:
+                    code_snippets.append(
+                        f"🔹 {file}:\n" + "\n".join(extracted_snippets)
+                    )
+
+    spinner.succeed("Repository context retrieved successfully.")
+    return "\n".join(repo_structure + code_snippets)

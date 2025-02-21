@@ -16,6 +16,16 @@
 	- Auto-resolves flake8 issues using black.
 	- Improved UI/UX prompts to guide users through lint fixes.
 
+- **GH-README Command**: Generate readme using advanced RAG retrieval
+	- Allows users to create or update a GitHub repository’s README.
+ 	- Utilizes GraphQL-based API for README content generation using advanced RAG retrieval.
+		- Supports dynamic context retrieval from repository files, structures, and docstrings
+		- Precise Section-Based Regeneration
+		- After viewing the README changes, users can choose which sections to keep, modify, or discard.
+			- Selectively regenerate modified sections.
+			- Uses accurate diff comparison logic to detect only actual changes between the existing and generated README.
+
+
 ### Changed
 - **Improved locate_local_repo Utility**:
 	- Now ignores hidden directories and files (e.g., .git, .config).

@@ -1,0 +1,15 @@
+mutation GenerateReadme(
+    $repoName: String!,
+    $repoContext: String!,
+    $userContext: String,
+    $existingReadme: String
+) {
+    generateReadme(
+        repoName: $repoName,
+        repoContext: $repoContext,
+        userContext: $userContext,
+        existingReadme: $existingReadme
+    ) {
+        content
+    }
+}

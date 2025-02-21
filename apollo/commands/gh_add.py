@@ -25,11 +25,6 @@ def gh_add():
         - Only compatible with directories containing a valid Git repository or ready for initialization.
     """
 
-    # Confirm or locate the local repository
-    use_current = questionary.confirm(
-        "Do you want to use the current directory as the repository?"
-    ).ask()
-
     spinner = Halo(spinner="dots")
 
     # Load configuration
@@ -37,6 +32,11 @@ def gh_add():
 
     cache_username(config)
     cache_gh_creds(config)
+
+    # Confirm or locate the local repository
+    use_current = questionary.confirm(
+        "Do you want to use the current directory as the repository?"
+    ).ask()
 
     if use_current:
         local_repo_path = os.getcwd()
@@ -69,7 +69,7 @@ def gh_add():
     confirm_local_repo = questionary.confirm(
         f"Detected local repository at '{local_repo_path}'. Is this correct?"
     ).ask()
-    
+
     if confirm_local_repo is None:
         graceful_exit()
 
@@ -169,7 +169,7 @@ def gh_add():
         create_remote = questionary.confirm(
             f"No remote repository found for '{repo_name}'. Would you like to create one?"
         ).ask()
-        
+
         if create_remote is None:
             graceful_exit()
 
@@ -178,9 +178,11 @@ def gh_add():
             repo_description = questionary.text(
                 "Enter a description for the repository:"
             ).ask()
-            if repo_description is None: graceful_exit()
+            if repo_description is None:
+                graceful_exit()
             private = questionary.confirm("Should the repository be private?").ask()
-            if private is None: graceful_exit()
+            if private is None:
+                graceful_exit()
 
             # Determine visibility
             visibility = "private" if private else "public"
@@ -212,8 +214,9 @@ def gh_add():
     confirm_push = questionary.confirm(
         f"Do you want to push the local repository to the remote repository '{repo_name}'?"
     ).ask()
-    
-    if confirm_push is None: graceful_exit()
+
+    if confirm_push is None:
+        graceful_exit()
 
     git_url = f"https://github.com/{config["github_username"]}/{repo_name}.git"
 
@@ -270,8 +273,9 @@ def gh_add():
                 reset_upstream = questionary.confirm(
                     "Would you like to reset the upstream branch to the current remote repository?"
                 ).ask()
-                
-                if reset_upstream is None: graceful_exit()
+
+                if reset_upstream is None:
+                    graceful_exit()
 
                 if reset_upstream:
                     # Remove existing remote if needed and add a new one

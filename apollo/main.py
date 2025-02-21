@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from apollo.commands.gh_create import gh_create  # Import subcommands
 from apollo.commands.gh_add import gh_add
 from apollo.commands.gh_delete import gh_delete
+from apollo.commands.gh_readme import gh_readme
 from apollo.commands.build import build
 from apollo.commands.deploy import deploy
 from apollo.commands.linear import linear
@@ -50,6 +51,7 @@ apollo.command("gh-create")(gh_create)
 apollo.command("gh-add")(gh_add)
 apollo.command("gh-delete")(gh_delete)
 apollo.command("linear")(linear)
+apollo.command("gh-readme")(gh_readme)
 
 # Add future commands here
 # apollo.command("data-utils")(data_utils)

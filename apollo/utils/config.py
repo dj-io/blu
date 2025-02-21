@@ -188,76 +188,6 @@ def ensure_pypirc(test):
     return True
 
 
-# integrate in future versions
-# (intended to help efficiency/relevancy of repo detection logic)
-
-"""
-Usage - place these vars in any command that uses locate_local_repo
-
-# Load configuration
-config = load_config()
-
-# Cache search paths and get whether default paths are being used
-search_paths, using_default_paths = cache_search_paths(config)
-
-# Locate a local repository
-repo_path = locate_local_repo(repo_name, search_paths=search_paths, using_default_paths=using_default_paths)
-"""
-
-
-def cache_search_paths(config):
-    """
-    Cache the prioritized search paths for locating local repositories.
-
-    :param config: The configuration dictionary.
-    :return: The cached search paths and whether the user is using defaults.
-    """
-    # Check if the search paths are already cached
-    if "search_paths" not in config or "using_default_paths" not in config:
-        spinner.info("No search paths are cached. Let's set them up.")
-
-        # Prompt the user if they want to use the default paths
-        use_default = questionary.confirm(
-            "Would you like to use the default search paths? (Developer directory and home directory)"
-        ).ask()
-
-        home_directory = os.path.expanduser("~")
-        default_developer_path = os.path.join(home_directory, "Developer")
-        default_paths = [default_developer_path, home_directory]
-
-        if use_default:
-            config["search_paths"] = default_paths
-            config["using_default_paths"] = True
-            save_config(config)
-            spinner.info(f"Using default search paths: {default_paths}")
-        else:
-            spinner.info("Let's set up your custom search paths.")
-
-            # Gather custom search paths from the user
-            search_paths = []
-            add_paths = True
-            while add_paths:
-                new_path = questionary.path(
-                    "Enter a directory to include in your search paths:"
-                ).ask()
-                search_paths.append(new_path)
-
-                add_paths = questionary.confirm(
-                    "Would you like to add another directory?"
-                ).ask()
-
-            config["search_paths"] = search_paths
-            config["using_default_paths"] = False
-            save_config(config)
-            spinner.info(f"Custom search paths cached successfully: {search_paths}")
-    else:
-        spinner.info(
-            f"Using cached search paths: {config['search_paths']} (Default paths: {config['using_default_paths']})"
-        )
-
-    return config["search_paths"], config["using_default_paths"]
-
-
 # GH AUTH
 
 
@@ -329,9 +259,15 @@ def check_gh_installed():
 
 def check_git_config():
     """Check and prompt the user to set up Git global configuration if missing."""
-    git_cred = run_command("git config --global credential.helper", start="checking credential helper...")
-    git_name = run_command("git config --global user.name", start="checking global config: username...")
-    git_email = run_command("git config --global user.email", start="checking global config: email...")
+    git_cred = run_command(
+        "git config --global credential.helper", start="checking credential helper..."
+    )
+    git_name = run_command(
+        "git config --global user.name", start="checking global config: username..."
+    )
+    git_email = run_command(
+        "git config --global user.email", start="checking global config: email..."
+    )
 
     # Identify missing configurations
     missing = {
@@ -439,3 +375,73 @@ def detect_package_manager():
         if run_command(f"command -v {mgr}", start="Detecting package managers...")
     ]
     return available_managers
+
+
+# integrate in future versions
+# (intended to help efficiency/relevancy of repo detection logic as everyone will not want to search starting from Developer)
+
+"""
+Usage - place these vars in any command that uses locate_local_repo
+
+# Load configuration
+config = load_config()
+
+# Cache search paths and get whether default paths are being used
+search_paths, using_default_paths = cache_search_paths(config)
+
+# Locate a local repository
+repo_path = locate_local_repo(repo_name, search_paths=search_paths, using_default_paths=using_default_paths)
+"""
+
+
+def cache_search_paths(config):
+    """
+    Cache the prioritized search paths for locating local repositories.
+
+    :param config: The configuration dictionary.
+    :return: The cached search paths and whether the user is using defaults.
+    """
+    # Check if the search paths are already cached
+    if "search_paths" not in config or "using_default_paths" not in config:
+        spinner.info("No search paths are cached. Let's set them up.")
+
+        # Prompt the user if they want to use the default paths
+        use_default = questionary.confirm(
+            "Would you like to use the default search paths? (Developer directory and home directory)"
+        ).ask()
+
+        home_directory = os.path.expanduser("~")
+        default_developer_path = os.path.join(home_directory, "Developer")
+        default_paths = [default_developer_path, home_directory]
+
+        if use_default:
+            config["search_paths"] = default_paths
+            config["using_default_paths"] = True
+            save_config(config)
+            spinner.info(f"Using default search paths: {default_paths}")
+        else:
+            spinner.info("Let's set up your custom search paths.")
+
+            # Gather custom search paths from the user
+            search_paths = []
+            add_paths = True
+            while add_paths:
+                new_path = questionary.path(
+                    "Enter a directory to include in your search paths:"
+                ).ask()
+                search_paths.append(new_path)
+
+                add_paths = questionary.confirm(
+                    "Would you like to add another directory?"
+                ).ask()
+
+            config["search_paths"] = search_paths
+            config["using_default_paths"] = False
+            save_config(config)
+            spinner.info(f"Custom search paths cached successfully: {search_paths}")
+    else:
+        spinner.info(
+            f"Using cached search paths: {config['search_paths']} (Default paths: {config['using_default_paths']})"
+        )
+
+    return config["search_paths"], config["using_default_paths"]

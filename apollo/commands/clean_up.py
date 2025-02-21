@@ -1,5 +1,6 @@
 import questionary
 from halo import Halo
+from apollo.utils.config import load_config, cache_apollo_path
 from apollo.utils.run_command import run_command
 from apollo.utils.directories import locate_local_repo
 import click
@@ -31,6 +32,13 @@ def clean_up(file):
         - Use this command as part of your workflow to maintain consistent coding standards.
     """
 
+    config = load_config()
+
+    # ensure apollo path has been set
+    cache_apollo_path(config)
+
+    APOLLO_PATH = config["apollo_path"]
+
     def run_flake8(target):
         """
         Run flake8 to check for linting issues.
@@ -39,6 +47,7 @@ def clean_up(file):
         try:
             output = run_command(
                 f"flake8 {target} --ignore=E501,W503 --format=default",
+                cwd=APOLLO_PATH,
                 start=f"Checking for linting issues in {target}...",
                 show_except=True,
                 return_on_fail=False,
@@ -66,7 +75,11 @@ def clean_up(file):
             spinner.info(f"Resolving issues in: {file_path}")
             try:
                 # Use Black for formatting the file
-                run_command(f"black {file_path}", start=f"Auto-formatting {file_path}")
+                run_command(
+                    f"black {file_path}",
+                    cwd=APOLLO_PATH,
+                    start=f"Auto-formatting {file_path}",
+                )
                 spinner.succeed(f"Formatted: {file_path}")
             except Exception as e:
                 spinner.warn(f"Could not format {file_path} automatically: {e}")

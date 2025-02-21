@@ -100,7 +100,9 @@ def increment_version(APOLLO_PATH, version_type="patch"):
             )
             new_version = "0.1.0"  # Default to initial version if no version is found
             for i, line in enumerate(new_lines):
-                if "setup(" in line:
+                if (
+                    "setup(" in line
+                ):  # TODO: update after switching to toml (setup deprecated)
                     new_lines.insert(i + 1, f'    version="{new_version}",\n')
                     break
             spinner.succeed(f"Version initialized to {new_version}.")
@@ -115,8 +117,32 @@ def increment_version(APOLLO_PATH, version_type="patch"):
 
 
 def graceful_exit():
+    """
+    Executes clean exit when user cancels an execution.
+    """
     spinner = Halo(spinner="dots")
-
-    """Handle SIGINT (CTRL+C) for the entire CLI process."""
     spinner.warn("\nProcess interrupted. Exiting cleanly... 🚪")
     sys.exit(1)
+
+
+def push_to_github(
+    repo_name, local_repo_path, commit_message="Automated Push", add_path="."
+):
+    """
+    Push README changes to GitHub.
+    """
+    spinner = Halo(spinner="dots")
+
+    run_command(f"git add {add_path}", cwd=local_repo_path, start="Staging README...")
+    run_command(
+        f'git commit -m "{commit_message}"',
+        cwd=local_repo_path,
+        start="Committing changes...",
+    )
+    run_command(
+        "git push origin main",
+        cwd=local_repo_path,
+        start="Pushing changes to GitHub...",
+    )
+
+    spinner.succeed(f"README successfully pushed to '{repo_name}' on GitHub.")
