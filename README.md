@@ -2,7 +2,7 @@
 
 ### `Sunday CLI & Services`
 
-Sunday is a **AI Powered, command-line interface** designed to **streamline** the `SDLC` by **automating project workflows**. Includes automations for **source control, CI/CD, ticket and documentation generation**, and other processes. Allowing teams to **focus on building and delivering** `software` efficiently.
+Sunday is an **AI Powered, command-line interface** designed to **streamline** the `SDLC` by **automating project workflows**. Includes automations for **source control, CI/CD, ticket and documentation generation**, and other processes. Allowing teams to **focus on building and delivering** `software` efficiently.
 
 <a href="https://github.com/dj-io/sunday/blob/main/sunday-cli/CONTRIBUTE.md">Contribute</a> ·
 <a href="https://sunday.com">Website</a> ·
