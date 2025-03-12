@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch
 import os
 import questionary
-from apollo.utils.directories import detect_directory
+from sun.utils.directories import detect_directory
 
 
 # Mock config objects
@@ -16,7 +16,7 @@ def mock_config_without_cached_directories():
     return {"cached_directories": []}
 
 
-@patch("apollo.utils.directories.detect_directory", return_value="/detected/path")
+@patch("sun.utils.directories.detect_directory", return_value="/detected/path")
 @patch("questionary.select")
 @patch("os.getcwd", return_value="/current/dir")
 def test_cached_directories_with_choices(

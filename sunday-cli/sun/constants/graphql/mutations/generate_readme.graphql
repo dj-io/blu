@@ -1,14 +1,18 @@
 mutation GenerateReadme(
+    $userId: String!,
     $repoName: String!,
     $repoContext: String!,
     $userContext: String,
-    $existingReadme: String
+    $existingReadme: String,
+    $token: String!
 ) {
     generateReadme(
+        userId: $userId,
         repoName: $repoName,
         repoContext: $repoContext,
         userContext: $userContext,
-        existingReadme: $existingReadme
+        existingReadme: $existingReadme,
+        token: $token
     ) {
         content
     }

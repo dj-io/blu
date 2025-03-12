@@ -15,14 +15,14 @@ dist/
 
 # Virtual environment
 venv/
-*.env/
+.env/
 .venv/
 *.env
 .env.dev
 .env.prod
 
 # macOS-specific files
-*.DS_Store
+.DS_Store
 
 # Logs and temporary files
 *.log
@@ -49,3 +49,6 @@ pip-wheel-metadata/
 
 # Others
 *.bak
+
+# security
+key_generator_util.py

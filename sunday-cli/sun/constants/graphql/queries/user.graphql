@@ -1,0 +1,12 @@
+query User(
+    $userName: String!,
+    $token: String!
+) {
+    user(
+        userId: $userId,
+        token: $token,
+    ) {
+        userId
+        userName
+    }
+}
