@@ -1,7 +1,6 @@
 import graphene
-from ..lib import types
 
-class ContentGenResponse(graphene.ObjectType):
+class UserGenerationsResponse(graphene.ObjectType):
     id = graphene.ID()
     content_type = graphene.String()
     content = graphene.String()
@@ -10,4 +9,7 @@ class ContentGenResponse(graphene.ObjectType):
     generated_content = graphene.JSONString()
     time_created = graphene.DateTime()
     time_updated = graphene.DateTime()
-    user = graphene.Field(types.GenerationsUserResponse)
+
+class GenerationsUserResponse(graphene.ObjectType):
+    id = graphene.UUID()
+    username = graphene.String()

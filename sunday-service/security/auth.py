@@ -30,18 +30,21 @@ def decode_access_token(data):
     token_data = jwt.decode(data, public_pem, algorithms=[ALGORITHM])
     return token_data
 
-def authenticate_request(token): # call this in all requests that should only be executable with a valid token
+def authenticate_request(token):
+    """
+     call this in all requests that should only be executable with a valid token
+    """
+
     try:
-        # update to confirm token is not expired and use refresh token to generate new token if so
         payload = decode_access_token(data=token)
         username = payload.get("user")
-
         if username is None:
-            raise GraphQLError("Invalid credentials 1")
-    except PyJWTError:
-        raise GraphQLError("Invalid credentials 2")
+            raise GraphQLError("Corrupted payload")
 
-    user = db.query(user_model.Users).filter(user_model.Users.username == username).first()
+    except PyJWTError:
+        raise GraphQLError("Could not access credentials")
+
+    user = db.query(user_model.User).filter(user_model.User.username == username).first()
 
     if user is None:
         raise GraphQLError("Invalid Credentials 3")

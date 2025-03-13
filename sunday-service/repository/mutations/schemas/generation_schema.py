@@ -1,11 +1,11 @@
 from pydantic import BaseModel
+import uuid
 
 class ContentGenRequest(BaseModel):
     content_type: str
-    content: str
     content_context: str
     user_context: str | None = None
-    user_id: int
+    user_id: uuid.UUID
 
 class GeneratedContentRequest(BaseModel):
-    sections: dict | None = None
+    sections: dict[str, str]

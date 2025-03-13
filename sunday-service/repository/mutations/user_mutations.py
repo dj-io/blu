@@ -10,6 +10,7 @@ from resources.db_conn import db_session
 db = db_session.session_factory()
 
 class Register(graphene.Mutation):
+    # define args/params the mutation will accept (request body)
     class Arguments:
         email = graphene.String(required=True)
         username = graphene.String(required=True)
@@ -23,7 +24,7 @@ class Register(graphene.Mutation):
         password_hash = hashed_password.decode("utf8") # ensures actual hash gets stored in database and not an encoded version of the hash
 
         user = user_schema.RegisterRequest(email=email, username=username, password=password_hash)
-        db_user = user_model.Users(email=user.email, username=user.username, password=user.password)
+        db_user = user_model.User(email=user.email, username=user.username, password=user.password)
         db.add(db_user)
 
         try:
@@ -40,19 +41,22 @@ class Token(graphene.ObjectType):
     token_type = graphene.String()
 
 class Login(graphene.Mutation):
+    # define args/params the mutation will accept (request body)
     class Arguments:
         username = graphene.String(required=True)
         password = graphene.String(required=True)
 
+    # define return data
     ok = graphene.Boolean()
     token = graphene.Field(Token)
 
+    # mutation business logic
     @staticmethod
     def mutate(root, info, username, password):
         # confirm data passed in to mutation matches the schema we set
         user = user_schema.LoginRequest(username=username, password=password)
         # confirm user exists by matching username
-        db_user_info = db.query(user_model.Users).filter(user_model.Users.username == username).first()
+        db_user_info = db.query(user_model.User).filter(user_model.User.username == username).first()
         # if username exists we check the password passed in against the password of the user in db
         if bcrypt.checkpw(user.password.encode("utf-8"), db_user_info.password.encode("utf-8")):
             access_token_expires = timedelta(minutes=60)
@@ -62,7 +66,3 @@ class Login(graphene.Mutation):
         else:
             ok = False
             return Login(ok=ok)
-
-class UserMutations(graphene.ObjectType):
-    register = Register.Field()
-    login = Login.Field()
