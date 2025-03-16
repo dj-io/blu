@@ -8,6 +8,7 @@ fastapi
 FastAPI-SQLAlchemy
 graphene
 graphene-sqlalchemy
+graphene-subscriptions
 graphql-core
 graphql-relay
 h11
@@ -34,3 +35,4 @@ typing_extensions
 uvicorn[standard]
 cryptography
 openai
+tiktoken

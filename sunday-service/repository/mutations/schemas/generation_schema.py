@@ -9,3 +9,7 @@ class ContentGenRequest(BaseModel):
 
 class GeneratedContentRequest(BaseModel):
     sections: dict[str, str]
+
+class TikToken(BaseModel):
+    _in: int
+    _out: int

@@ -3,7 +3,7 @@ from resources.db_conn import db_session
 from security.auth import authenticate_request
 from resources.models import generation_model
 from repository.mutations.schemas import generation_schema as mut_schema
-from tools.ai import content_generator
+from tools.ai import generate
 
 db = db_session.session_factory()
 
@@ -19,7 +19,8 @@ class GenerateContent(graphene.Mutation):
 
     # define return data
     result = graphene.String()
-    sections = graphene.JSONString()
+    generated_content = graphene.JSONString()
+    tokens = graphene.JSONString()
 
     @staticmethod
     async def mutate(root, info, content_type, content_context, user_context, token):
@@ -34,15 +35,17 @@ class GenerateContent(graphene.Mutation):
                 user_id=authenticated.id
             )
 
-            generated_content = content_generator.generate_docs(generation_request)
+            # generated_content, tokens = generative_utils.generate_docs(generation_request)
+            generated_content, tokens = generate.generate_docs(generation_request)
 
             # prepare data to be added into the database
             db_content = generation_model.Generation(
                 **generation_request.model_dump(),
-                generated_content=generated_content
+                generated_content=generated_content,
+                tokens=tokens
             )
-            db.add(db_content)
-            db.commit()
-            db.refresh(db_content)
+            # db.add(db_content)
+            # db.commit()
+            # db.refresh(db_content)
             result = f"Successfully generated {generation_request.content_type} content"
-            return GenerateContent(result=result, sections=db_content.generated_content)
+            return GenerateContent(result=result, generated_content=db_content.generated_content, tokens=db_content.tokens)

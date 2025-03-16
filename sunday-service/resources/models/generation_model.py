@@ -13,6 +13,7 @@ class Generation(Base):
     content_context = Column(String)
     user_context = Column(String)
     generated_content = Column(JSON)
+    tokens = Column(JSON)
     time_created = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     time_updated = Column(DateTime(timezone=True), onupdate=func.now(), index=True)
     user_id = Column(UUID, ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)

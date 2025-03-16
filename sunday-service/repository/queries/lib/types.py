@@ -13,3 +13,10 @@ class UserGenerationsResponse(graphene.ObjectType):
 class GenerationsUserResponse(graphene.ObjectType):
     id = graphene.UUID()
     username = graphene.String()
+    plan = graphene.String()
+    active = graphene.Boolean()
+
+class TikToken(graphene.ObjectType):
+    _in = graphene.Int()
+    _out = graphene.Int()
+

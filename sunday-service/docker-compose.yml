@@ -12,6 +12,8 @@ services:
     - POSTGRES_USER=${DB_USER}
     - POSTGRES_PASSWORD=${DB_PASSWORD}
     - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   app:
     container_name: ${APP_CONTAINER_NAME}
@@ -28,5 +30,7 @@ services:
     restart: always
 
 volumes:
+  postgres_data:
+    name: ${DB_CONTAINER_NAME}
   certs_volume:
     name: ${APP_CONTAINER_NAME}
