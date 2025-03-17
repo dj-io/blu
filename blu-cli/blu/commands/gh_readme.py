@@ -1,14 +1,14 @@
 import os
 import questionary
 from halo import Halo
-from sun.utils.graphql_loader import GraphQLLoader
-from sun.utils.run_command import push_to_github
-from sun.utils.directories import (
+from blu.utils.graphql_loader import GraphQLLoader
+from blu.utils.run_command import push_to_github
+from blu.utils.directories import (
     locate_local_repo,
     save_readme,
     retrieve_repo_context,
 )
-from sun.utils.docs import (
+from blu.utils.docs import (
     extract_changed_sections,
     display_diff_and_confirm,
     generate_doc_content_with_ai,
@@ -107,7 +107,7 @@ def gh_readme():
         push_to_github(
             repo_name,
             local_repo_path,
-            commit_message="Updated README via Sunday CLI",
+            commit_message="Updated README via BLU CLI",
             add_path="README.md",
         )
     else:

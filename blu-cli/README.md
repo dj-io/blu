@@ -1,17 +1,17 @@
 
- <h1 align="center"> Sunday CLI 🌔 </h1>
+ <h1 align="center"> BLU CLI 🌔 </h1>
 
 <p align="center">
-  <a href="https://pypi.org/project/sunday-cli/0.1.0/">
-    <img src="https://img.shields.io/pypi/v/sunday-cli.svg" alt="PyPI Version">
+  <a href="https://pypi.org/project/blu/0.1.0/">
+    <img src="https://img.shields.io/pypi/v/blu.svg" alt="PyPI Version">
   </a>
-  <a href="https://github.com/dj-io/sunday/blob/main/sunday-cli/LICENSE">
-    <img src="https://img.shields.io/github/license/dj-io/sunday.svg" alt="License">
+  <a href="https://github.com/dj-io/blu/blob/main/blu-cli/LICENSE">
+    <img src="https://img.shields.io/github/license/dj-io/blu-cli.svg" alt="License">
   </a>
-  <a href="https://github.com/dj-io/sunday-cli/actions">
+  <a href="https://github.com/dj-io/blu-cli/actions">
     <img src="https://img.shields.io/badge/Tests-Passing-brightgreen" alt="Build Status">
   </a>
-  <!-- <a href="https://coveralls.io/github/psf/sunday?branch=main"> -->
+  <!-- <a href="https://coveralls.io/github/psf/blu?branch=main"> -->
     <img src="https://img.shields.io/badge/coverage-36%25-brightgreen" alt="Coverage Status">
   <!-- </a> -->
   </a>
@@ -20,7 +20,7 @@
   </a>
 </p>
 
-Sunday CLI is an, AI Powered, command-line interface designed to streamline the SDLC by automating project workflows. Includes automations for source control, CI/CD, ticket and documentation generation, and other processes. 
+BLU CLI is an, AI Powered, command-line interface designed to streamline the SDLC by automating project workflows. Includes automations for source control, CI/CD, ticket and documentation generation, and other processes.
 
 This tool simplifies tasks like managing source control repositories i.e Github, CI/CD i.e github actions, Project management workflows and more, allowing teams to focus on building and delivering software efficiently.
 
@@ -32,7 +32,7 @@ This tool simplifies tasks like managing source control repositories i.e Github,
   - [Installation](#installation)
 - [Usage 🛠](#usage-🛠️) ️
   - [Show Available Commands](#show-available-commands)
-  - [Show Command Features: `sun <command> --help`](#show-command-features)
+  - [Show Command Features: `blu <command> --help`](#show-command-features)
     - [Usage](#usage-1)
     - [Key Features](#key-features)
 - [Contributing 💡](#contributing-💡)
@@ -41,58 +41,58 @@ This tool simplifies tasks like managing source control repositories i.e Github,
     - [Using Developer Mode](#using-developer-mode)
   - [Guidelines](#guidelines)
   - [Versioning](#versioning)
-- [License 📜](#license-📜 )  
-- [Acknowledgments 🙏](#acknowledgments-🙏) 
+- [License 📜](#license-📜 )
+- [Acknowledgments 🙏](#acknowledgments-🙏)
 
-# ️ Features ⚙️ 
+# ️ Features ⚙️
 
  - **Automation Tools**: Scripts for automating repetitive tasks, such as data processing, file management, github actions, and API integration.
-- **Data Utilities**: Scripts for data extraction, transformation, and analysis, including  
+- **Data Utilities**: Scripts for data extraction, transformation, and analysis, including
 basic visualizations.
  - **Task Scheduling**: Scripts to schedule and automate recurring tasks (e.g., backups, log parsing).
 
  # Getting Started 🔑
- 
+
  ### Prerequisites
 
 Ensure you have the following installed:
 
 - **Python3** for running the scripts in this repo
-- **Pip3** pythons package manager used to install the pypi package sunday 
+- **Pip3** pythons package manager used to install the pypi package BLU
 
 ## Installation
 
-### Via [PyPI](https://pypi.org/project/sunday-cli/0.1.0/)
+### Via [PyPI](https://pypi.org/project/blu/)
 
 Install the latest version using `pip`:
 
 ```bash
-pip install sunday
+pip install blu
 ```
 
 ### Via Source
 
 Clone the repository and install it locally:
 ```bash
-git clone https://github.com/dj-io/sunday/sunday-cli.git
-cd sunday-cli
+git clone https://github.com/dj-io/blu/blu-cli.git
+cd blu-cli
 pip install -r requirements.txt
 ```
 
 ## Usage 🛠
 
-Sunday provides a collection of commands designed to streamline your development workflows. After installation, the sun command is available in your terminal.
+BLU provides a collection of commands designed to streamline your development workflows. After installation, the blu command is available in your terminal.
 
 ### Show Available Commands
 
 Run the following to see a list of available commands and their descriptions:
 ```bash
-sun --help
+blu --help
 ```
 
 example output:
 ```bash
-Usage: sun [OPTIONS] COMMAND [ARGS]...
+Usage: blu [ARGS] COMMAND [OPTIONS]...
 
 Options:
   --help  Show this message and exit.
@@ -109,12 +109,12 @@ Commands:
 Run the following to see a more descriptive output of commands features and usage:
 
 ```bash
-sun <command> --help
+blu <command> --help
 ```
 
 example output:
 ```bash
-Usage: sun gh-create [OPTIONS]
+Usage: blu gh-create [OPTIONS]
 
   Create a new GitHub repository and initialize it locally.
 
@@ -137,7 +137,7 @@ Options:
 
 1. **Interactive Directory Selection**
 
-    Sunday automatically detects directories and provides multiple options:
+    blu automatically detects directories and provides multiple options:
 
     - Use the current working directory.
     - Select an existing directory from a list.
@@ -164,7 +164,7 @@ Options:
 
 1. Fork the repository.
     ```bash
-    gh repo fork https://github.com/dj-io/sunday.git --remote=true
+    gh repo fork https://github.com/dj-io/blu.git --remote=true
     ```
 
 2. Create a new branch to your feature or bug fix:
@@ -184,11 +184,11 @@ Options:
 
 5. Open a pull request on Github.
 
-### Developer Mode 🪄: 
+### Developer Mode 🪄:
 
 ### Setting up developer mode
- 
- `Developer mode enables additional CLI commands (e.g., sun build and sun deploy) that are not available in production. Follow these steps to configure and use developer mode:`
+
+ `Developer mode enables additional CLI commands (e.g., blu build and blu deploy) that are not available in production. Follow these steps to configure and use developer mode:`
 
 ---
 
@@ -196,7 +196,7 @@ Options:
 
   - Navigate to the root directory of the project.
   - Create .env.dev and .env.prod files based on the provided .env.sample file.
-  
+
   ```bash
   cp .env.sample .env.dev
   cp .env.sample .env.prod
@@ -204,7 +204,7 @@ Options:
 - Edit the .env.dev and .env.prod files with your environment-specific variables. For example:
 
 ```bash
-SUN_DEV_MODE=1
+blu_DEV_MODE=1
 ```
 
 **2. Enable Developer Mode.**
@@ -218,7 +218,7 @@ Run the following command in your terminal to enable developer mode:
 
 ### Using Developer Mode
 
-Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy sunday.
+Developer mode commands are available for contributors to streamline package development, testing, and deployment. These commands allow developers to rebuild and deploy blu.
 
 ---
 
@@ -226,11 +226,11 @@ Developer mode commands are available for contributors to streamline package dev
 
 
 1. **Build**
-    
-     Use the sunday build command to rebuild the package during development. This ensures all changes to the codebase are reflected in the package.
+
+     Use the blu build command to rebuild the package during development. This ensures all changes to the codebase are reflected in the package.
 
     ```bash
-    sun build
+    blu build
     ```
     - **The command includes prompts to**:
       - Cleans up old build artifacts.
@@ -239,10 +239,10 @@ Developer mode commands are available for contributors to streamline package dev
       - Automatically installs missing dependencies from `requirements.txt`
 
 2. **Deploy**
-    Use the sunday deploy command to package and deploy the CLI to PyPI (or TestPyPI)
+    Use the blu deploy command to package and deploy the CLI to PyPI (or TestPyPI)
 
     ```bash
-    sun deploy
+    blu deploy
     ```
     -	The command includes prompts to:
         -	Select between TestPyPI or Prod PyPI.
@@ -253,15 +253,15 @@ Developer mode commands are available for contributors to streamline package dev
     - Example
 
       ```bash
-      sun deploy --test  # Deploy to TestPyPI
-      sun deploy --prod  # Deploy to Prod PyPI
+      blu deploy --test  # Deploy to TestPyPI
+      blu deploy --prod  # Deploy to Prod PyPI
       ```
 
 3. **Clean up**
-    Use the sunday clean-up command to run linting checks and automatically resolve using `flake8` and `black`
+    Use the blu clean-up command to run linting checks and automatically resolve using `flake8` and `black`
 
     ```bash
-    sun clean-up
+    blu clean-up
     ```
     -	The command includes prompts to:
         -	Confirm clean-up action if linting issues are found.
@@ -269,7 +269,7 @@ Developer mode commands are available for contributors to streamline package dev
 
 **Additional Notes**
 
-  
+
   - `The deploy command is only executable with credentials provided upon request`
   - **Switching Modes**:
     - To switch back to production mode, run:
@@ -310,8 +310,8 @@ Developer mode commands are available for contributors to streamline package dev
     **- Prompts for Missing Credentials**:
 
     - **DON'T WORRY**,	If the `.pypirc` file is incomplete (e.g., missing a repository, username, or password), the CLI will guide you through updating it!
-  
-  - Run `sun --help` in developer mode to view the full list of available commands
+
+  - Run `blu --help` in developer mode to view the full list of available commands
   -  If you modify .env.dev or .env.prod, reload your environment variables:
       ```bash
       source ~/.zshrc  # For Zsh
@@ -324,16 +324,16 @@ Developer mode commands are available for contributors to streamline package dev
 - Ensure your code is well-documented and adheres to **PEP 8** standards.
 - Add **tests** for any new features or bug fixes.
 - **Do Not Commit Sensitive Data**: Ensure .env.dev and .env.prod are excluded from version control by including them in .gitignore.
-- **Testing Locally**: Use `sun build` to test changes locally before deploying to PyPI or TestPyPI.
+- **Testing Locally**: Use `blu build` to test changes locally before deploying to PyPI or TestPyPI.
 - **Deploy Responsibly**: Always verify the environment (dev or prod) before running deployment commands to avoid accidental production deployments.
 
 ### Versioning:
-Given a version number `major.minor.patch`, all: 
+Given a version number `major.minor.patch`, all:
 
   - Breaking backwards compatibility bumps the MAJOR
   - New additions without breaking backwards compatibility bumps the MINOR
   - Bug fixes and misc changes bump the PATCH
-  
+
   **For more information on semantic versioning, please visit http://semver.org/.**
 
 
@@ -344,7 +344,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 # Acknowledgments 🙏
 
-`Sunday` is inspired by the need to streamline development workflows. Special thanks to all future contributors who will help shape this project.
+`BLU` is inspired by the need to streamline development workflows. Special thanks to all future contributors who will help shape this project.
 
 <!-- ### Technologies Used 📚
 

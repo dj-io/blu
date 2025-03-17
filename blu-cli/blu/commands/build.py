@@ -1,5 +1,5 @@
-from sun.utils.run_command import run_command
-from sun.utils.config import load_config, cache_sun_path
+from blu.utils.run_command import run_command
+from blu.utils.config import load_config, cache_blu_path
 from halo import Halo
 import os
 import subprocess
@@ -8,7 +8,7 @@ import click
 
 @click.option("--skip-lint", is_flag=True, help="Build without linting checks")
 def build(skip_lint):
-    """Build and prepare the Sunday package for distribution.
+    """Build and prepare the BLU package for distribution.
 
     \b
     Features:
@@ -25,14 +25,14 @@ def build(skip_lint):
 
     config = load_config()
 
-    # ensure sun path has been set
-    cache_sun_path(config)
+    # ensure blu path has been set
+    cache_blu_path(config)
 
     # run pwd from project dir to update path
-    SUN_PATH = config["sun_path"]
+    BLU_PATH = config["blu_path"]
 
     # run pwd from project dir to update path in .config file
-    REQUIREMENTS_FILE = os.path.join(SUN_PATH, "requirements.txt")
+    REQUIREMENTS_FILE = os.path.join(BLU_PATH, "requirements.txt")
 
     spinner = Halo(spinner="dots")
 
@@ -40,7 +40,7 @@ def build(skip_lint):
         try:
             run_command(
                 f"pip3 install -r {REQUIREMENTS_FILE}",
-                SUN_PATH,
+                BLU_PATH,
                 start="Checking for dependencies...",
             )
             spinner.succeed("requirements.txt found. Installing dependencies...")
@@ -51,12 +51,12 @@ def build(skip_lint):
         # Step 2: Verify code quality and run tests
     try:
         if not skip_lint:
-            run_command("flake8 --ignore=E501,W503 .", SUN_PATH, start="Checking code quality...")
+            run_command("flake8 --ignore=E501,W503 .", BLU_PATH, start="Checking code quality...")
             spinner.succeed("Code quality checks passed.")
 
         run_command(
             "pytest --maxfail=1 --disable-warnings",
-            SUN_PATH,
+            BLU_PATH,
             start="Running tests...",
         )
         spinner.succeed("All tests passed.")
@@ -77,19 +77,19 @@ def build(skip_lint):
         try:
             run_command(
                 "rm -rf dist/ build/ *.egg-info",
-                SUN_PATH,
+                BLU_PATH,
                 start="Cleaning up old build artifacts...",
             )
             spinner.succeed("Old build artifacts cleaned up.")
 
             run_command(
-                "python3 -m build", SUN_PATH, start="Building the package..."
+                "python3 -m build", BLU_PATH, start="Building the package..."
             )
             spinner.succeed("Package built successfully.")
 
             run_command(
                 "pip3 install dist/*.whl --force-reinstall",
-                SUN_PATH,
+                BLU_PATH,
                 start="Installing locally for testing...",
             )
             spinner.succeed("Package installed locally for testing.")

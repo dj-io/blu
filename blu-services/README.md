@@ -1,12 +1,12 @@
 
-<h1 align="center">Sunday Services 🌔</h1>
+<h1 align="center">BLU Services 🌔</h1>
 
 <p align="center">
-  <b>AI-Powered Web API Services for Sunday</b>
+  <b>AI-Powered Web API Services for BLU</b>
 </p>
 
 <p align="center">
-  🚀 Built with <b>FastAPI</b> and <b>GraphQL</b>, Sunday Services powers the server-side implementation for Sunday's CLI, desktop, and web applications.
+  🚀 Built with <b>FastAPI</b> and <b>GraphQL</b>, BLU Services powers the server-side implementation for BLU's CLI, desktop, and web applications.
 </p>
 
 ---
@@ -19,6 +19,6 @@
 
 # Getting Started
 ```sh
-git clone https://github.com/dj-io/sunday-services.git
-cd sunday-services
+git clone https://github.com/dj-io/blu.git
+cd blu-services
 docker-compose up --build

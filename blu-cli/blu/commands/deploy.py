@@ -2,10 +2,10 @@ import os
 import questionary
 import click
 import getpass
-from sun.utils.run_command import run_command, increment_version
-from sun.utils.config import (
+from blu.utils.run_command import run_command, increment_version
+from blu.utils.config import (
     load_allowed_users,
-    cache_sun_path,
+    cache_blu_path,
     load_config,
     ensure_pypirc,
 )
@@ -28,7 +28,7 @@ from halo import Halo
 @click.option("--minor", is_flag=True, help="Increment the minor version.")
 @click.option("--patch", is_flag=True, help="Increment the patch version (default).")
 def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
-    """Deploy the Sunday package to PyPI or TestPyPI.
+    """Deploy the BLU package to PyPI or TestPyPI.
 
     \b
     Features:
@@ -56,10 +56,10 @@ def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
     # Ensure the .pypirc file exists and has valid credentials
     ensure_pypirc(test)
 
-    # Ensure Sunday Path is Set
+    # Ensure BLU Path is Set
     config = load_config()
-    cache_sun_path(config)
-    SUN_PATH = config["sun_path"]
+    cache_blu_path(config)
+    BLU_PATH = config["blu_path"]
 
     # Confirm Deployment Environment
     env_choice = "testpypi" if test else "pypi"
@@ -93,16 +93,16 @@ def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
     os.environ["ENV"] = "prod"  # Set environment to prod
     spinner.info("Environment variable 'ENV' set to 'prod'.")
 
-    log_file = os.path.join(SUN_PATH, "sanity_check_errors.log")
+    log_file = os.path.join(BLU_PATH, "sanity_check_errors.log")
 
     try:
-        increment_version(SUN_PATH, version_type)
+        increment_version(BLU_PATH, version_type)
         run_command(
             "rm -rf dist/ build/ *.egg-info",
-            SUN_PATH,
+            BLU_PATH,
             start="Cleaning previous build artifacts...",
         )
-        run_command("python3 -m build", SUN_PATH, start="Building the package...")
+        run_command("python3 -m build", BLU_PATH, start="Building the package...")
     except Exception as e:
         spinner.fail(f"Build failed: {e}")
         return
@@ -112,7 +112,7 @@ def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
         try:
             run_command(
                 "twine check dist/*",
-                SUN_PATH,
+                BLU_PATH,
                 start="Performing sanity check on the build artifacts...",
             )
             spinner.succeed("Sanity check passed. No build issues detected.")
@@ -137,7 +137,7 @@ def deploy(test, prod, skip_sanity_check, verbose, major, minor, patch):
     try:
         run_command(
             f"python3 -m twine upload --repository {env_choice} dist/* {verbose}",
-            SUN_PATH,
+            BLU_PATH,
             start=f"Pushing package to {env_choice}...",
         )
         spinner.succeed(f"Package successfully pushed to {env_choice}!")

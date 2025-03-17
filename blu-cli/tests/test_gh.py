@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch
 import os
 import questionary
-from sun.utils.directories import detect_directory
+from blu.utils.directories import detect_directory
 
 
 # Mock config objects
@@ -16,7 +16,7 @@ def mock_config_without_cached_directories():
     return {"cached_directories": []}
 
 
-@patch("sun.utils.directories.detect_directory", return_value="/detected/path")
+@patch("blu.utils.directories.detect_directory", return_value="/detected/path")
 @patch("questionary.select")
 @patch("os.getcwd", return_value="/current/dir")
 def test_cached_directories_with_choices(

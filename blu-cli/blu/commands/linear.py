@@ -1,4 +1,4 @@
-from sun.utils.config import load_config, cache_username
+from blu.utils.config import load_config, cache_username
 from halo import Halo
 
 

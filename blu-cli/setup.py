@@ -1,17 +1,17 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="sunday-cli",
+    name="blu",
     version="0.0.0",
     description="Automate the entire Software Development Lifecycle.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Stratum Labs",
     author_email="hq@stratumlabs.ai",
-    url="https://github.com/dj-io/sunday",
+    url="https://github.com/dj-io/blu",
     project_urls={
-        "Code": "https://github.com/dj-io/sunday",
-        "Documentation": "https://github.com/dj-io/sunday/blob/main/sunday-cli/README.md",
+        "Code": "https://github.com/dj-io/blu",
+        "Documentation": "https://github.com/dj-io/blu/blob/main/blu-cli/README.md",
     },
     packages=find_packages(exclude=["tests", "tests.*"]),
     include_package_data=True,
@@ -28,7 +28,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "sun=sun.main:sunday",  # Maps the `sun` command to the `sunday()` group function
+            "blu=blu.main:blu",  # Maps the `blu` command to the `blu()` group function
         ],
     },
     classifiers=[

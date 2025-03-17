@@ -1,13 +1,13 @@
 import subprocess
 from unittest.mock import patch
-from sun.commands.build  import build
+from blu.commands.build  import build
 
 
-@patch("sun.commands.build.run_command")
-@patch("sun.commands.build.os.path.exists")
-@patch("sun.commands.build.load_config")
-@patch("sun.commands.build.cache_apollo_path")
-@patch("sun.commands.build.Halo")
+@patch("blu.commands.build.run_command")
+@patch("blu.commands.build.os.path.exists")
+@patch("blu.commands.build.load_config")
+@patch("blu.commands.build.cache_apollo_path")
+@patch("blu.commands.build.Halo")
 def test_build_retry(
     mock_halo, mock_cache_apollo_path, mock_load_config, mock_exists, mock_run_command
 ):
@@ -15,7 +15,7 @@ def test_build_retry(
     Test the `build` function when the user chooses to retry after a failure.
     """
     # Mock configuration and path setup
-    mock_load_config.return_value = {"sun_path": "/tmp/sun"}
+    mock_load_config.return_value = {"blu_path": "/tmp/blu"}
     mock_exists.side_effect = lambda path: True  # Mock requirements.txt existence
 
     # Simulate a failure and retry during the build process

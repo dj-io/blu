@@ -5,7 +5,7 @@
 
 ### Added
 - **GitHub CLI Setup Automation**
-	- Added github auth & credentials setup to detect, install and authenticate Github CLI (gh) Automatically 
+	- Added github auth & credentials setup to detect, install and authenticate Github CLI (gh) Automatically
 		- If gh is not installed, users are prompted to install it using their available package manager.
 		- Git authentication (gh auth status) is checked and set up if missing.
 		- Global Git Config Check: Ensures git user.name, git user.email, and git credential.helper are correctly set.
@@ -41,7 +41,7 @@
 <h3 align="center"> [1.1.0-beta] - 2025-01-21 </h3>
 
 ### Added
-- **Bulk Delete**: Implemented the gh_delete Command to delete GitHub repositories. Supports single or bulk deletion.. 
+- **Bulk Delete**: Implemented the gh_delete Command to delete GitHub repositories. Supports single or bulk deletion..
 - **Spinner Integration:** Introduced terminal spinners using the `halo` library to enhance user experience during command executions.
 - **Environment Management:** Added support for `.env.dev` and `.env.prod` files to streamline configuration for developer and production modes.
 - **Change Logs in Deployment:** Integrated a prompt to accept release notes or changelogs during deployments. Automatically appends entries to a `CHANGELOG.md` file if provided.
@@ -55,7 +55,7 @@
 	- Remote Repository Detection: Automatically detects if a remote repository with the same name exists on GitHub. If no matching repository is found, prompts the user to create a new remote repository.
 	- Git Repository Validation: Ensures the directory is a Git repository. If not, it initializes Git, sets up .gitignore (creating it if necessary), and adds untracked files.
 	- Upstream Configuration: Checks if an upstream branch is already configured for the local repository. If not, prompts to set one up and links the repository to the detected or newly created remote.
-- **clean-up command:** Clean up and fix linting issues in the Sunday codebase.
+- **clean-up command:** Clean up and fix linting issues in the BLU codebase.
 	- Identify and resolve Python linting issues within the codebase.
 	- Supports automatic code formatting using Flake8 and Black.
 	- Allows users to provide a specific path (file or directory) using the --path flag, or defaults to the entire project if no path is provided.
@@ -83,11 +83,11 @@
 
 ### Added
 - **GitHub Repository Management:**
-  - Introduced `sun gh-create` for creating new repositories with interactive prompts.
+  - Introduced `blu gh-create` for creating new repositories with interactive prompts.
   - Added support for caching GitHub usernames and directories for future use.
 - **Directory Navigation Tools:** Included logic for automatic directory detection, subdirectory navigation, and creating new directories.
-- **Build Command:** Added the `sun build` command for cleaning and rebuilding the package, with dependency installation based on `requirements.txt`.
-- **Deployment Command:** Enabled deployments to TestPyPI and ProdPyPI through the `sun deploy` command.
+- **Build Command:** Added the `blu build` command for cleaning and rebuilding the package, with dependency installation based on `requirements.txt`.
+- **Deployment Command:** Enabled deployments to TestPyPI and ProdPyPI through the `blu deploy` command.
 
 ### Changed
 - **Command-Line Interaction:** Adopted the `Click` library for handling CLI commands and options, ensuring a more intuitive developer experience.

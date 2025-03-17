@@ -1,8 +1,8 @@
 import os
 import questionary
 from halo import Halo
-from sun.utils.docs import extract_docstrings_and_functions
-from sun.utils.run_command import graceful_exit
+from blu.utils.docs import extract_docstrings_and_functions
+from blu.utils.run_command import graceful_exit
 
 spinner = Halo(spinner="dots")
 

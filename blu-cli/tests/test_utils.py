@@ -3,9 +3,9 @@ import pytest
 import configparser
 import subprocess
 from unittest.mock import patch, MagicMock
-from sun.utils.directories import detect_directory
-from sun.utils.run_command import run_command
-from sun.utils.config import ensure_pypirc
+from blu.utils.directories import detect_directory
+from blu.utils.run_command import run_command
+from blu.utils.config import ensure_pypirc
 
 
 @pytest.fixture
@@ -19,10 +19,10 @@ def mock_pypirc_file(tmp_path):
 # ----------------------------------------------------------- DETECTIONS -----------------------------------------------------------------
 
 
-@patch("sun.utils.directories.os.path.exists")
-@patch("sun.utils.directories.create_directory")
-@patch("sun.utils.directories.get_subdirectories")
-@patch("sun.utils.directories.questionary")
+@patch("blu.utils.directories.os.path.exists")
+@patch("blu.utils.directories.create_directory")
+@patch("blu.utils.directories.get_subdirectories")
+@patch("blu.utils.directories.questionary")
 def test_detect_directory_developer_exists(
     mock_questionary, mock_get_subdirectories, mock_create_directory, mock_path_exists
 ):
@@ -43,10 +43,10 @@ def test_detect_directory_developer_exists(
     mock_get_subdirectories.assert_called_once_with(os.path.expanduser("~/Developer"))
 
 
-@patch("sun.utils.directories.os.path.exists")
-@patch("sun.utils.directories.create_directory")
-@patch("sun.utils.directories.get_subdirectories")
-@patch("sun.utils.directories.questionary")
+@patch("blu.utils.directories.os.path.exists")
+@patch("blu.utils.directories.create_directory")
+@patch("blu.utils.directories.get_subdirectories")
+@patch("blu.utils.directories.questionary")
 def test_detect_directory_create_developer(
     mock_questionary, mock_get_subdirectories, mock_create_directory, mock_path_exists
 ):
@@ -66,10 +66,10 @@ def test_detect_directory_create_developer(
     mock_create_directory.assert_called_once_with(os.path.expanduser("~/Developer"))
 
 
-@patch("sun.utils.directories.os.path.exists")
-@patch("sun.utils.directories.create_directory")
-@patch("sun.utils.directories.get_subdirectories")
-@patch("sun.utils.directories.questionary")
+@patch("blu.utils.directories.os.path.exists")
+@patch("blu.utils.directories.create_directory")
+@patch("blu.utils.directories.get_subdirectories")
+@patch("blu.utils.directories.questionary")
 def test_detect_directory_create_new_directory(
     mock_questionary, mock_get_subdirectories, mock_create_directory, mock_path_exists
 ):
@@ -98,8 +98,8 @@ def test_detect_directory_create_new_directory(
 # ----------------------------------------------------------- RUN COMMANDS -----------------------------------------------------------------
 
 
-@patch("sun.utils.run_command.subprocess.run")
-@patch("sun.utils.run_command.Halo")
+@patch("blu.utils.run_command.subprocess.run")
+@patch("blu.utils.run_command.Halo")
 def test_run_command_success(mock_halo, mock_run):
     """
     Test run_command for successful command execution.
@@ -127,8 +127,8 @@ def test_run_command_success(mock_halo, mock_run):
     assert output == "Command executed successfully."
 
 
-@patch("sun.utils.run_command.subprocess.run")
-@patch("sun.utils.run_command.Halo")
+@patch("blu.utils.run_command.subprocess.run")
+@patch("blu.utils.run_command.Halo")
 def test_run_command_failure(mock_halo, mock_run):
     """
     Test run_command for command failure (CalledProcessError).
@@ -160,8 +160,8 @@ def test_run_command_failure(mock_halo, mock_run):
     )
 
 
-@patch("sun.utils.run_command.subprocess.run")
-@patch("sun.utils.run_command.Halo")
+@patch("blu.utils.run_command.subprocess.run")
+@patch("blu.utils.run_command.Halo")
 def test_run_command_with_cwd(mock_halo, mock_run):
     """
     Test run_command with a custom working directory.
@@ -193,7 +193,7 @@ def test_run_command_with_cwd(mock_halo, mock_run):
 # ----------------------------------------------------------- CONFIG -----------------------------------------------------------------
 
 
-@patch("sun.utils.config.questionary")
+@patch("blu.utils.config.questionary")
 def test_ensure_pypirc_creates_new_file(
     mock_questionary, mock_pypirc_file, monkeypatch
 ):
@@ -223,7 +223,7 @@ def test_ensure_pypirc_creates_new_file(
     assert config["testpypi"]["password"] == "test_token"
 
 
-@patch("sun.utils.config.questionary")
+@patch("blu.utils.config.questionary")
 def test_ensure_pypirc_updates_invalid_file(
     mock_questionary, mock_pypirc_file, monkeypatch
 ):
@@ -263,7 +263,7 @@ password =
     assert config["testpypi"]["password"] == "test_token"
 
 
-@patch("sun.utils.config.questionary")
+@patch("blu.utils.config.questionary")
 def test_ensure_pypirc_aborts_if_user_declines_creation(
     mock_questionary, mock_pypirc_file, monkeypatch
 ):
@@ -279,7 +279,7 @@ def test_ensure_pypirc_aborts_if_user_declines_creation(
         ensure_pypirc(test=True)
 
 
-@patch("sun.utils.config.questionary")
+@patch("blu.utils.config.questionary")
 def test_ensure_pypirc_valid_file_no_changes(
     mock_questionary, mock_pypirc_file, monkeypatch
 ):

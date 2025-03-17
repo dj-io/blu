@@ -1,11 +1,11 @@
-<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.emojibase.com%2Fresources%2Fimg%2Femojis%2Fapple%2F1f312.png&f=1&nofb=1&ipt=b7211fd6cc7e7c9854a6a335af9d65273410c3df7a9feef5df5501b893ca3643&ipo=images" align="left" width="200"/>
+<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkit.com%2Fpng%2Ffull%2F1-13308_blue-moon-png.png&f=1&nofb=1&ipt=042f5a5bc1121781bffda72f937cb6e32bb0190aafa7172d449793f34cfb2dac&ipo=images" align="left" width="250"/>
 
-### `Sunday CLI & Services`
+### `BLU Applications & Services`
 
-Sunday is an **AI Powered, command-line interface** designed to **streamline** the `SDLC` by **automating project workflows**. Includes automations for **source control, CI/CD, ticket and documentation generation**, and other processes. Allowing teams to **focus on building and delivering** `software` efficiently.
+BLU is an **AI-powered scaffolding library** designed to **streamline** the `SDLC` by **automating processes** like **source control, CI/CD, issue tracking and documentation**. For developers, it means less boilerplate and quicker setups, for project managers, it means streamlined workflows and rapid delivery. Using the same `powerful tools` trusted by top teams, BLU accelerates your development process—freeing you to focus on innovation and deliver exceptional software faster.
 
-<a href="https://github.com/dj-io/sunday/blob/main/sunday-cli/CONTRIBUTE.md">Contribute</a> ·
-<a href="https://sunday.com">Website</a> ·
-<a href="https://sunday.com/docs">Docs</a> ·
-<a href="https://sunday.com/download">Download</a> ·
-<a href="https://github.com/dj-io/sunday/blob/main/sunday-cli/CHANGELOG.md">Release Notes</a>
+<a href="https://github.com/dj-io/y/blob/main/blu-cli/CONTRIBUTE.md">Contribute</a> ·
+<a href="https://blu.com">Website</a> ·
+<a href="https://blu.com/docs">Docs</a> ·
+<a href="https://blu.com/download">Download</a> ·
+<a href="https://github.com/dj-io/blu/blob/main/blu-cli/CHANGELOG.md">Release Notes</a>
