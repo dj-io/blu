@@ -37,8 +37,8 @@ def blu():
 
 pass
 
-# Access blu_DEV_MODE
-if os.getenv("blu_DEV_MODE") == "1":
+# Access BLU_DEV_MODE
+if os.getenv("BLU_DEV_MODE") == "1":
     print("Developer mode enabled.")
 
     blu.command("build")(build)

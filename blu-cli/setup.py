@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="blu",
-    version="0.0.0",
+    name="blu-o1",
+    version="0.1.0",
     description="Automate the entire Software Development Lifecycle.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

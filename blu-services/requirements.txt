@@ -2,13 +2,11 @@ alembic
 aniso8601
 annotated-types
 anyio
+asyncpg
 bcrypt
 click
 fastapi
 FastAPI-SQLAlchemy
-graphene
-graphene-sqlalchemy
-graphene-subscriptions
 graphql-core
 graphql-relay
 h11
@@ -20,6 +18,7 @@ psycopg2-binary
 pyasn1
 pydantic
 pydantic_core
+pydantic[email]
 PyJWT
 python-dateutil
 python-dotenv
@@ -30,7 +29,8 @@ six
 sniffio
 SQLAlchemy
 starlette
-starlette-graphene3
+strawberry-graphql
+sqlalchemy[asyncio]
 typing_extensions
 uvicorn[standard]
 cryptography

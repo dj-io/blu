@@ -2,8 +2,8 @@
  <h1 align="center"> BLU CLI 🌔 </h1>
 
 <p align="center">
-  <a href="https://pypi.org/project/blu/0.1.0/">
-    <img src="https://img.shields.io/pypi/v/blu.svg" alt="PyPI Version">
+  <a href="https://pypi.org/project/blu-cli/0.1.0/">
+    <img src="https://img.shields.io/pypi/v/blu-cli.svg" alt="PyPI Version">
   </a>
   <a href="https://github.com/dj-io/blu/blob/main/blu-cli/LICENSE">
     <img src="https://img.shields.io/github/license/dj-io/blu-cli.svg" alt="License">
@@ -67,7 +67,7 @@ Ensure you have the following installed:
 Install the latest version using `pip`:
 
 ```bash
-pip install blu
+pip install blu-cli
 ```
 
 ### Via Source
@@ -92,7 +92,7 @@ blu --help
 
 example output:
 ```bash
-Usage: blu [ARGS] COMMAND [OPTIONS]...
+Usage: blu COMMAND [ARGS] [OPTIONS]...
 
 Options:
   --help  Show this message and exit.
@@ -204,7 +204,7 @@ Options:
 - Edit the .env.dev and .env.prod files with your environment-specific variables. For example:
 
 ```bash
-blu_DEV_MODE=1
+BLU_DEV_MODE=1
 ```
 
 **2. Enable Developer Mode.**

@@ -1,6 +1,3 @@
-version: "3.8" # version of code to utilize in this file
-
-
 services:
   db:
     container_name: ${DB_CONTAINER_NAME}
@@ -18,7 +15,7 @@ services:
   app:
     container_name: ${APP_CONTAINER_NAME}
     build: .
-    command: sh -c "alembic -c resources/alembic.ini upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    command: sh -c "alembic -c Resource/alembic.ini upgrade head && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
     volumes:
       - .:/app
       - certs_volume:/certs

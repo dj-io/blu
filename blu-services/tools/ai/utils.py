@@ -5,7 +5,6 @@ import tiktoken
 import logging
 import openai
 from dotenv import load_dotenv
-from .enums import Prompt
 
 load_dotenv(".env")
 

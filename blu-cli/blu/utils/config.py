@@ -41,7 +41,7 @@ def load_config():
             f"Configuration file at {CONFIG_FILE} is not a valid JSON file."
         )
 
-
+# this is a nonsenicle logic, anyone can open config and add themselves to the allowed_users -> should move to blu-services
 def load_allowed_users():
     """Load configuration from the file or initialize default if it doesn't exist."""
     if os.path.exists(CONFIG_FILE):
