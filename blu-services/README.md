@@ -1,5 +1,5 @@
 
-<h1 align="center">BLU Services 🌔</h1>
+<h1 align="center">BLU Services ⚗️</h1>
 
 <p align="center">
   <b>AI-Powered Web API Services for BLU</b>
@@ -11,14 +11,12 @@
 
 ---
 
-# ️ Features ⚙️
+# Services ⚙️
 
 - **User Authentication & Secure Endpoints** – Implements **JWT authentication** to protect sensitive routes.
 - **AI-Powered Documentation & SDLC Support** – Integrates **OpenAI API** to generate **design docs, READMEs, feature specs, changelogs, and more**.
 - **GraphQL API** – Provides flexible and efficient data retrieval with a single request.
 
-# Getting Started
-```sh
-git clone https://github.com/dj-io/blu.git
-cd blu-services
-docker-compose up --build
+## Contributing
+
+We welcome community contributions. For guidelines, refer to our [CONTRIBUTING.md](/CONTRIBUTING.md).
