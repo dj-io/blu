@@ -1,4 +1,4 @@
-<img src="./assets/blue-fire-fx-for-game-design-free-png-1459789154.png" align="left"/>
+<img src="./assets/blue-fire-fx-for-game-design-free-png-1459789154.png" align="left" />
 
 ### `BLU Platforms & Services`
 

@@ -68,7 +68,7 @@ blu deploy <project-name>
 
 ## ⚗️ Generation
 
-BLU can also generate project documentation using context provided from any file or directory on your system using [blu-services](https://github.com/dj-io/blu/blob/main/blu-services/README.md) generation API reference. Additionally MCP allows BLU to write what you generate directly in the apps you use. To generate docs run `blu generate <file-or-dir>`
+BLU can also generate project documentation using context provided from any file or directory on your system all powered by [blu-services](../blu-services/README.md) generation API. Additionally MCP allows BLU to write what you generate directly in the apps you use. To generate docs run `blu generate <file-or-dir>`
 
 <!-- Check out docs built with BLU:
 
@@ -120,7 +120,7 @@ Checkout open source projects that are using BLU:
 
 ## Inspiration
 
-Blu is inspired by internal tooling built to enhance software development team experience, with the intended purpose streamlining development workflows.
+Blu is inspired by internal tooling built to enhance software development team experience, with the intended purpose of streamlining development workflows.
 
 ## Community
 
@@ -128,6 +128,6 @@ Blu is inspired by internal tooling built to enhance software development team e
 
 ## Contributing
 
-We welcome community contributions. For guidelines, refer to our [CONTRIBUTING.md](/CONTRIBUTING.md).
+We welcome community contributions. For guidelines, refer to our [CONTRIBUTING.md](./CONTRIBUTING.md).
 
 ![BLU Contributors](https://contrib.rocks/image?repo=dj-io/blu)

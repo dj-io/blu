@@ -19,4 +19,4 @@
 
 ## Contributing
 
-We welcome community contributions. For guidelines, refer to our [CONTRIBUTING.md](/CONTRIBUTING.md).
+We welcome community contributions. For guidelines, refer to our [CONTRIBUTING.md](./CONTRIBUTING.md).
