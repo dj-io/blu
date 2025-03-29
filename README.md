@@ -1,4 +1,4 @@
-<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.pngkit.com%2Fpng%2Ffull%2F1-13308_blue-moon-png.png&f=1&nofb=1&ipt=042f5a5bc1121781bffda72f937cb6e32bb0190aafa7172d449793f34cfb2dac&ipo=images" align="left" width="250"/>
+<img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic.displate.com%2F857x1200%2Fdisplate%2F2023-05-09%2F935e44ec08b400be15be217ced133316_d9ed6232ca9308a9fdff902636e0cd69.jpg&f=1&nofb=1&ipt=0e6d4774e5b75d129535d05d82a97d0e11a9f7fddb30f783fa878336f391ba01&ipo=images" align="left" width="250"/>
 
 ### `BLU Applications & Services`
 
