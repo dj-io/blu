@@ -4,7 +4,7 @@
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="../assets/blue-fire-fx-for-game-design-free-png-1459789154.png">
       <source media="(prefers-color-scheme: light)" srcset="../assets/blue-fire-fx-for-game-design-free-png-1459789154.png">
-      <img alt="logo" src="../assets/blue-fire-fx-for-game-design-free-png-1459789154.png" height="200" align="center">
+      <img alt="logo" src="../assets/blue-fire-fx-for-game-design-free-png-1459789154.png" height="300" align="center">
     </picture>
   </a>
 <br/>
