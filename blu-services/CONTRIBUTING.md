@@ -49,6 +49,13 @@ To remove a volume (e.g., if you need to reset persistent data), run:
 docker volume rm <volume_name>
 ```
 
+Managing migrations: _Blu services uses alembic to manage db migrations, whenever starting a new container run the following_
+
+```sh
+- docker-compose run <app-container-name> alembic -c Resource/alembic.ini revision --autogenerate -m "V<num> Migration"
+- docker-compose run <app-container-name> alembic -c Resource/alembic.ini upgrade head
+```
+
 Managing local database:
 
 To connect to postgres run:
